@@ -27,6 +27,10 @@ const ROWS = 24
 
 let mouseDown = false
 
+let midi_note_to_freq = (note) => {
+    return 440 * Math.pow(2, ((note + 72) - 69) / 12)
+}
+
 document.addEventListener("mousedown", () => {if (!mouseDown) mouseDown = true})
 document.addEventListener("mouseup", () => {if (mouseDown) mouseDown = false})
 
@@ -41,9 +45,11 @@ class Cell {
 
         this.element.classList.add('cell-off')
 
-        let width = (((screen.width - 100) / COLS))
+        let width = (((screen.width - 200) / COLS))
         this.element.style.minWidth = width + "px"
+        this.element.style.maxWidth = width + "px"
         this.element.style.minHeight = (width / 2) + "px"
+        this.element.style.maxHeight = (width / 2) + "px"
 
         this.element.addEventListener("mousedown", () => {this.toggle()})
         this.element.addEventListener('mouseover', (e) => {
@@ -57,11 +63,20 @@ class Cell {
     toggle() {
         this.enabled = !this.enabled
         this.updateUI()
+
+        if (this.enabled) {
+            playTone(midi_note_to_freq(this.row), 0.75)
+        }
     }
 
     updateUI() {
         this.element.classList.remove(this.enabled ? "cell-off" : "cell-on")
         this.element.classList.add(this.enabled ? "cell-on" : "cell-off")
+    }
+
+    setCursor(cursor) {
+        if (cursor) this.element.classList.add("pointer")
+        else this.element.classList.remove("pointer")
     }
 }
 

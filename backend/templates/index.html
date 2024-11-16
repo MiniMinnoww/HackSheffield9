@@ -7,13 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <section id="text">
+        <h1>Music Harmonizer</h1>
+        <p>EMILY ADD THE EXPLANATION OF HOW TO USE IT</p>
+        <br>
+    </section>
     <input type="button" value="GO!" id="goButton">
-    <main id="midi_roll">
 
-    </main>
+    <div id="container">
+        <div id="piano">
+
+        </div>
+        <main id="midi_roll">
+
+        </main>
+    </div>
 
 
-
+    <script src="{{ url_for('static', filename='js/notes.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
