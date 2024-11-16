@@ -66,6 +66,11 @@ class Cell {
 }
 
 class ChordCell extends Cell {
+    constructor(row, col, div) {
+        super(row, col, div)
+        this.element.classList.remove('cell-off')
+        this.element.classList.add('chord-cell-off')
+    }
     updateUI() {
         this.element.classList.remove(this.enabled ? "chord-cell-off" : "chord-cell-on")
         this.element.classList.add(this.enabled ? "chord-cell-on" : "chord-cell-off")
