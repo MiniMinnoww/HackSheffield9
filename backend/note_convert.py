@@ -11,6 +11,8 @@ notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 def create_full_chord_dict(payload):
     chord_dict = dict()
     chord_profile = payload["chords"]
+    if chord_profile[0] != "1":
+        chord_profile[0] = "1"
     chord_changes = get_chord_changes(chord_profile)
 
     for chord_change in range(len(chord_changes)):
