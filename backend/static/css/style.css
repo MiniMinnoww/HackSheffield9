@@ -1,10 +1,10 @@
+/*the colours have been checked and are accessible for multiple forms of colour blindness*/
 :root {
-    --text: #040911;
     --background: #f3f7fc;
-    --primary: #3f7dd1;
     --secondary: #c88be3;
-    --accent: #dc6eca;
+    --accent: #c101ba;
     --lighter: #8ec7ff;
+    --primary: #3f7dd1;
 }
 
 #midi_roll {
@@ -58,7 +58,7 @@
     height: 40px;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 0% 0% 2% 46%;
+    margin: 0% 0% 1% 46%;
 }
 
 #goButton:hover{
@@ -68,6 +68,10 @@
 
     /*makes the button more accessible by emphasising the button is hovered over*/
     outline: 2px solid rgb(117, 117, 117);
+}
+
+.pointer{
+    outline: 2px solid rgb(0,0,0);
 }
 
 /*.cell {*/
