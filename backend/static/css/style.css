@@ -70,7 +70,7 @@
 }
 
 .pointer{
-    background-color: 2px solid var(--lighter);
+    background-color: var(--lighter);
 }
 
 /*.cell {*/
