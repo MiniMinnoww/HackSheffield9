@@ -70,13 +70,13 @@
 }
 
 .black-key {
-    background-image: linear-gradient(to right, black 0%, black 70%, white 71%, white 100%);
+    background-image: linear-gradient(to right, black 0%, black 50%, white 51%, white 100%);
     margin-right: 0;
     margin-left: auto;
 }
 
 .black-key:hover {
-    background-image: linear-gradient(to right, black 0%, black 70%, #AAAAAA 71%, #AAAAAA 100%);
+    background-image: linear-gradient(to right, black 0%, black 50%, #AAAAAA 51%, #AAAAAA 100%);
 }
 
 .key:hover {
