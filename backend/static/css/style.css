@@ -7,12 +7,16 @@
     --lighter: #8ec7ff;
 }
 
+#midi_roll {
+    outline: 4px solid rgb(0,0,0);
+}
+
 .cell {
     height: 25px;
     width: 50px;
     min-width: 100px;
     flex: 1;
-    border: 1px solid rgb(0,0,0);
+    border: 1px solid rgb(149, 149, 149);
     background-color: var(--background)
 }
 
@@ -42,6 +46,10 @@
     outline: 2px solid #000000;
 }
 
+.bar-line{
+    border-left: 2px solid rgb(0,0,0);
+}
+
 #goButton{
     background-color: var(--primary);
     border: 5px outset var(--primary);
@@ -50,13 +58,16 @@
     height: 40px;
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin: 0% 0% 2% 46%;
 }
 
 #goButton:hover{
     background-color: var(--lighter);
     border: 5px outset var(--lighter);
     color: #ffffff;
+
+    /*makes the button more accessible by emphasising the button is hovered over*/
+    outline: 2px solid rgb(117, 117, 117);
 }
 
 /*.cell {*/
