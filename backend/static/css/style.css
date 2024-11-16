@@ -7,8 +7,10 @@
 }
 
 .cell {
-    height: 50px;
-    width: 100px;
+    height: 25px;
+    width: 50px;
+    min-width: 100px;
+    flex: 1;
     border: 1px solid rgb(0,0,0);
     background-color: var(--background)
 }
@@ -24,6 +26,7 @@
 .row {
     display: flex;
     flex-direction: row;
+    box-sizing: border-box;
 }
 
 .row:hover{
