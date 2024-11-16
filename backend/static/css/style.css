@@ -50,6 +50,19 @@
     border-left: 2px solid rgb(0,0,0);
 }
 
+.pointer{
+    background-color: var(--lighter);
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+}
+
+#piano {
+    flex: 1;
+}
+
 #goButton{
     background-color: var(--primary);
     border: 5px outset var(--primary);
@@ -67,10 +80,6 @@
     color: #ffffff;
     /*makes the button more accessible by emphasising the button is hovered over*/
     outline: 2px solid rgb(117, 117, 117);
-}
-
-.pointer{
-    background-color: var(--lighter);
 }
 
 /*.cell {*/
