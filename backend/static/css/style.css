@@ -63,6 +63,14 @@
     flex: 1;
 }
 
+.key {
+    background-color: white;
+}
+
+.black-key {
+    background-image: linear-gradient(to right, black 0%, black 70%, white 71%, white 100%);
+}
+
 #goButton{
     background-color: var(--primary);
     border: 5px outset var(--primary);
