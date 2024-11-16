@@ -47,8 +47,11 @@ function playTone(frequency, duration) {
 let play = () => {
     if (playing) {
         clearInterval(intervalId);
+        playing = false
         return
     }
+
+    playing = true
 
     const bpm = 120;
     const interval = Math.pow(bpm / 60, -1) / 8 * 1000;  // Interval for each column in milliseconds
@@ -83,6 +86,7 @@ let play = () => {
         // Stop when you've looped through all columns (optional)
         if (columnIndex === 0) {
             clearInterval(intervalId);
+            playing = false
         }
     }, interval);
 };

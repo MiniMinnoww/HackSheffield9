@@ -97,6 +97,25 @@ class ChordCell extends Cell {
     }
 }
 
+class PianoCell {
+    constructor(row, div, black) {
+        this.row = row
+        this.enabled = false
+        this.element = div
+
+        if (black) this.element.classList.add('black-key')
+        else this.element.classList.add('key')
+
+        let width = (((screen.width - 200) / COLS))
+        this.element.style.minWidth = width + "px"
+        this.element.style.maxWidth = width + "px"
+        this.element.style.minHeight = (width / 2) + "px"
+        this.element.style.maxHeight = (width / 2) + "px"
+
+        this.element.addEventListener("mousedown", () => {playTone(midi_note_to_freq(this.row), 1)})
+    }
+}
+// Create notes
 midi_notes = []
 chords = []
 midi_roll = document.getElementById("midi_roll")
@@ -116,6 +135,21 @@ for (let n = 0; n < COLS; n++) {
 
     chords.push(chordCell)
 }
+
+// Create piano roll
+let pianoNotes = []
+let pianoRoll = document.getElementById("piano")
+
+for (let p = 0; p < ROWS; p++) {
+    let cell = document.createElement("div")
+    pianoRoll.appendChild(cell)
+    cell.classList.add("cell")
+
+    let pianoCell = new PianoCell(p, cell, )
+
+    pianoNotes.push(pianoCell)
+}
+midi_notes.reverse() // Notes r backwards atm
 
 midi_roll.appendChild(document.createElement("br"))
 
@@ -138,6 +172,8 @@ for (let i = 0; i < ROWS; i++) {
 
 
 }
+
+// Make piano roll UI
 
 document.getElementById("goButton").addEventListener("click", (e) => {
     let generatePayload = () => {
