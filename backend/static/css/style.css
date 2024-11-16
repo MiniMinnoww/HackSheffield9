@@ -1,0 +1,32 @@
+:root {
+    --text: #040911;
+    --background: #f3f7fc;
+    --primary: #3f7dd1;
+    --secondary: #c88be3;
+    --accent: #dc6eca;
+}
+
+.cell {
+    height: 50px;
+    width: 100px;
+    border: 1px solid rgb(0,0,0);
+    background-color: var(--background)
+}
+
+.cell-on {
+    background-color: var(--accent);
+}
+
+.cell-off:hover {
+    background-color: var(--secondary);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row:hover{
+    border-top: 2px solid rgb(0,0,0);
+    border-bottom: 2px solid rgb(0,0,0);
+}
