@@ -71,7 +71,7 @@
 }
 
 .pointer{
-    outline: 2px solid rgb(0,0,0);
+    background-color: 2px solid var(--lighter);
 }
 
 /*.cell {*/
