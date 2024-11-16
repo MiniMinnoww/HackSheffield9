@@ -65,7 +65,6 @@
     background-color: var(--lighter);
     border: 5px outset var(--lighter);
     color: #ffffff;
-
     /*makes the button more accessible by emphasising the button is hovered over*/
     outline: 2px solid rgb(117, 117, 117);
 }
