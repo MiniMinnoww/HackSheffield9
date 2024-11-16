@@ -4,6 +4,7 @@
     --primary: #3f7dd1;
     --secondary: #c88be3;
     --accent: #dc6eca;
+    --lighter: #8ec7ff;
 }
 
 .cell {
@@ -27,6 +28,10 @@
     background-color: var(--primary);
 }
 
+.chord-cell-off:hover {
+    background-color: var(--lighter);
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -45,14 +50,13 @@
     height: 40px;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 0 auto;
+    margin-bottom: 15px;
 }
 
 #goButton:hover{
-    /*
-    background-color: #87a8d5;
+    background-color: var(--lighter);
+    border: 5px outset var(--lighter);
     color: #ffffff;
-     */
 }
 
 /*.cell {*/
