@@ -1,25 +1,4 @@
-console.log("Script")
-
-midi_notes = []
-midi_roll = document.getElementById("midi_roll")
-
-for (let i = 0; i < 12; i++) {
-    let row = []
-
-    let div = document.createElement("div")
-    midi_roll.appendChild(div)
-
-    for (let j = 0; j < 12; j++) {
-        let cell = document.createElement("div")
-        div.appendChild(cell)
-        div.classList.add("cell")
-
-        row.push(new Cell(i, j, div))
-    }
-    midi_notes.push(row)
-
-
-}
+console.log("Started JS!")
 
 class Cell {
     constructor(row, col, div) {
@@ -29,6 +8,30 @@ class Cell {
         this.element = div
     }
 }
+
+midi_notes = []
+midi_roll = document.getElementById("midi_roll")
+
+for (let i = 0; i < 12; i++) {
+    let row = []
+
+    let div = document.createElement("div")
+    div.classList.add("row")
+    midi_roll.appendChild(div)
+
+    for (let j = 0; j < 12; j++) {
+        let cell = document.createElement("div")
+        div.appendChild(cell)
+        cell.classList.add("cell")
+
+        row.push(new Cell(i, j, div))
+    }
+    midi_notes.push(row)
+
+
+}
+
+
 
 // // Fetch data from Flask
 // fetch = () => {
