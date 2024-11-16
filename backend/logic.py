@@ -57,6 +57,46 @@ def print_chords(chord_dict):
         output += "\n\n"
     return output
 
+def check_all_chords(note, possible_chords, maj_dict, min_dict):
+    for chord in maj_dict:
+        if note in chord:
+            weighting = weightings[chord[note]]
+            if chord in possible_chords:
+                possible_chords[chord]+=weighting
+            else:
+                possible_chords[chord]=weighting
+    for chord in min_dict:
+        if note in chord:
+            weighting = weightings[chord[note]]
+            if chord in possible_chords:
+                possible_chords[chord+"m"]+=weighting
+            else:
+                possible_chords[chord+"m"]=weighting
+    return possible_chords
+
+def check_notes_in_section(notes_list, maj_dict, min_dict):
+    possible_chords = dict()
+    for note in notes_list:
+        possible_chords=check_all_chords(note, possible_chords, maj_dict, min_dict)
+    return possible_chords
+
+def notes_in_section(notes_dict, maj_dict, min_dict):
+    notes_list = []
+    for note in notes_dict:
+        notes_list.append(note)
+    check_notes_in_section(notes_list, maj_dict, min_dict)
+
+def most_likely_chord(possible_chords):
+    top_value=0
+    top_chord=""
+    for chord in possible_chords:
+        if possible_chords[chord] > top_value:
+            top_value=possible_chords[chord]
+            top_chord=chord
+    return top_chord
+
+
+
 maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
 
 print(print_chords(maj_chords))
