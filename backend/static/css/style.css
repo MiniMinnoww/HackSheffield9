@@ -71,6 +71,14 @@
     background-image: linear-gradient(to right, black 0%, black 70%, white 71%, white 100%);
 }
 
+.black-key:hover {
+    background-image: linear-gradient(to right, black 0%, black 70%, #AAAAAA 71%, #AAAAAA 100%);
+}
+
+.key:hover {
+    background-color: #AAAAAA;
+}
+
 #goButton{
     background-color: var(--primary);
     border: 5px outset var(--primary);
