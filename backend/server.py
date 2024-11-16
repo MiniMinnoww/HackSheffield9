@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-
+import note_convert
 app = Flask(__name__)
 
 @app.route('/')
@@ -10,8 +10,8 @@ def index():
 def api_data():
     if request.method == 'POST':
         data = request.json  # Parse JSON data from the templates
-        print(data)  # Process the data (e.g., save to DB, perform calculations)
-        return jsonify({"message": "Data received!"})
+        data_returned = note_convert.on_data_received(data)
+        return jsonify(data_returned)
     return jsonify({"data": "Hello from the backend!"})
 
 if __name__ == '__main__':

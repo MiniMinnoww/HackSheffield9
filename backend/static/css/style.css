@@ -1,9 +1,14 @@
+/*the colours have been checked and are accessible for multiple forms of colour blindness*/
 :root {
-    --text: #040911;
     --background: #f3f7fc;
-    --primary: #3f7dd1;
     --secondary: #c88be3;
-    --accent: #dc6eca;
+    --accent: #c101ba;
+    --lighter: #8ec7ff;
+    --primary: #3f7dd1;
+}
+
+#midi_roll {
+    outline: 4px solid rgb(0,0,0);
 }
 
 .cell {
@@ -11,7 +16,7 @@
     width: 50px;
     min-width: 100px;
     flex: 1;
-    border: 1px solid rgb(0,0,0);
+    border: 1px solid rgb(149, 149, 149);
     background-color: var(--background)
 }
 
@@ -23,6 +28,14 @@
     background-color: var(--secondary);
 }
 
+.chord-cell-on {
+    background-color: var(--primary);
+}
+
+.chord-cell-off:hover {
+    background-color: var(--lighter);
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -30,6 +43,61 @@
 }
 
 .row:hover{
-    border-top: 2px solid rgb(0,0,0);
-    border-bottom: 2px solid rgb(0,0,0);
+    outline: 2px solid #000000;
 }
+
+.bar-line{
+    border-left: 2px solid rgb(0,0,0);
+}
+
+.pointer{
+    background-color: var(--lighter);
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+}
+
+#piano {
+    flex: 1;
+}
+
+.key {
+    background-color: white;
+}
+
+.black-key {
+    background-image: linear-gradient(to right, black 0%, black 70%, white 71%, white 100%);
+}
+
+.black-key:hover {
+    background-image: linear-gradient(to right, black 0%, black 70%, #AAAAAA 71%, #AAAAAA 100%);
+}
+
+.key:hover {
+    background-color: #AAAAAA;
+}
+
+#goButton{
+    background-color: var(--primary);
+    border: 5px outset var(--primary);
+    border-radius: 5px;
+    width: 110px;
+    height: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0% 0% 1% 46%;
+}
+
+#goButton:hover{
+    background-color: var(--lighter);
+    border: 5px outset var(--lighter);
+    color: #ffffff;
+    /*makes the button more accessible by emphasising the button is hovered over*/
+    outline: 2px solid rgb(117, 117, 117);
+}
+
+/*.cell {*/
+/*   user-select: none;*/
+/*}*/
