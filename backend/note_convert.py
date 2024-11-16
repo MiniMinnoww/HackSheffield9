@@ -69,7 +69,7 @@ def on_data_received(payload):
     chord_map = create_full_chord_dict(payload)
 
     # test starts
-    print(chord_map)
+    print_chord_dict(chord_map)
     # test ends
 
     return dict()
