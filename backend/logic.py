@@ -22,13 +22,12 @@ min_template = {
 
 weightings = {
     "I": 1,
-    "II": 2,
-    "III": 3,
-    "IV": 4,
-    "V": 5,
-    "VI": 6,
-    "majVII": 7,
-    "minVII": 8,
+    "II": 1,
+    "III": 1,
+    "IV": 1,
+    "V": 1,
+    "VI": 1,
+    "VII": 1,
 }
 
 def get_related_note(note, semitones):
@@ -59,19 +58,22 @@ def print_chords(chord_dict):
 
 def check_all_chords(note, possible_chords, maj_dict, min_dict):
     for chord in maj_dict:
-        if note in chord:
-            weighting = weightings[chord[note]]
+        if note in maj_dict[chord]:
+            weighting = weightings[maj_dict[chord][note]]
+            print(note, "is in", chord, "with weighting", weighting)
             if chord in possible_chords:
                 possible_chords[chord]+=weighting
             else:
                 possible_chords[chord]=weighting
     for chord in min_dict:
-        if note in chord:
-            weighting = weightings[chord[note]]
+        if note in min_dict[chord]:
+            weighting = weightings[min_dict[chord][note]]
+            chord+="m"
+            print(note, "is in", chord, "with weighting", weighting)
             if chord in possible_chords:
-                possible_chords[chord+"m"]+=weighting
+                possible_chords[chord]+=weighting
             else:
-                possible_chords[chord+"m"]=weighting
+                possible_chords[chord]=weighting
     return possible_chords
 
 def check_notes_in_section(notes_list, maj_dict, min_dict):
@@ -81,10 +83,18 @@ def check_notes_in_section(notes_list, maj_dict, min_dict):
     return possible_chords
 
 def notes_in_section(notes_dict, maj_dict, min_dict):
-    notes_list = []
-    for note in notes_dict:
-        notes_list.append(note)
-    check_notes_in_section(notes_list, maj_dict, min_dict)
+    for chord_change in notes_dict:
+        notes_list=[]
+        note_prevalences=notes_dict[chord_change]
+        for note in note_prevalences:
+            if note == "start_index":
+                pass
+            else:
+                notes_list.append(note)
+        print(notes_list)
+        possible_chords=check_notes_in_section(notes_list, maj_dict, min_dict)
+        print(possible_chords)
+        print(most_likely_chord(possible_chords), "is the most likely chord for this section")
 
 def most_likely_chord(possible_chords):
     top_value=0
@@ -95,9 +105,10 @@ def most_likely_chord(possible_chords):
             top_chord=chord
     return top_chord
 
-
-
 maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
 
 print(print_chords(maj_chords))
 print(print_chords(min_chords))
+
+notes_dict = {0: {'start_index': 0, 'C': 6, 'Eb': 4}, 1: {'start_index': 8}, 2: {'start_index': 16, 'C': 4, 'Eb': 4}, 3: {'start_index': 24, 'C': 8, 'Eb': 8}}
+notes_in_section(notes_dict, maj_chords, min_chords)
