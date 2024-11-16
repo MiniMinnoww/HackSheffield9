@@ -1,7 +1,7 @@
 console.log("Started JS!")
 
 const COLS = 32
-const ROWS = 12
+const ROWS = 24
 
 let mouseDown = false
 
@@ -19,7 +19,7 @@ class Cell {
 
         this.element.classList.add('cell-off')
 
-        let width = (((screen.width - 100) / 32))
+        let width = (((screen.width - 100) / COLS))
         this.element.style.minWidth = width + "px"
         this.element.style.minHeight = (width / 2) + "px"
 
@@ -38,7 +38,7 @@ class Cell {
     }
 
     updateUI() {
-        this.element.classList.remove(this.enabled ? "cell-on" : "cell-off")
+        this.element.classList.remove(this.enabled ? "cell-off" : "cell-on")
         this.element.classList.add(this.enabled ? "cell-on" : "cell-off")
     }
 }
@@ -46,14 +46,14 @@ class Cell {
 midi_notes = []
 midi_roll = document.getElementById("midi_roll")
 
-for (let i = 0; i < 12; i++) {
+for (let i = 0; i < ROWS; i++) {
     let row = []
 
     let div = document.createElement("div")
     div.classList.add("row")
     midi_roll.appendChild(div)
 
-    for (let j = 0; j < 32; j++) {
+    for (let j = 0; j < COLS; j++) {
         let cell = document.createElement("div")
         div.appendChild(cell)
         cell.classList.add("cell")

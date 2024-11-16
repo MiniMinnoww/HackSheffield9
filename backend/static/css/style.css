@@ -30,6 +30,9 @@
 }
 
 .row:hover{
-    border-top: 2px solid rgb(0,0,0);
-    border-bottom: 2px solid rgb(0,0,0);
+    outline: 2px solid rgb(0,0,0);
 }
+
+/*.cell {*/
+/*   user-select: none;*/
+/*}*/
