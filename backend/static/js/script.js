@@ -140,12 +140,16 @@ for (let n = 0; n < COLS; n++) {
 let pianoNotes = []
 let pianoRoll = document.getElementById("piano")
 
+// Give the same spacing
+pianoRoll.appendChild(document.createElement("br"))
+pianoRoll.appendChild(document.createElement("br"))
+
 for (let p = 0; p < ROWS; p++) {
     let cell = document.createElement("div")
     pianoRoll.appendChild(cell)
     cell.classList.add("cell")
 
-    let pianoCell = new PianoCell(p, cell, )
+    let pianoCell = new PianoCell(p, cell, [1, 3, 6, 8, 10].includes(p % 12))
 
     pianoNotes.push(pianoCell)
 }
