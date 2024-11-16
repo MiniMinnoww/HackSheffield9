@@ -97,6 +97,8 @@ for (let n = 0; n < COLS; n++) {
     chords.push(chordCell)
 }
 
+midi_roll.appendChild(document.createElement("br"))
+
 // Make MIDI roll cells
 for (let i = 0; i < ROWS; i++) {
     let row = []
