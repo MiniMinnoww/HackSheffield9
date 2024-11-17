@@ -114,6 +114,26 @@ input[type="number"]:hover{
     box-shadow: 2px 2px 5px rgb(117, 117, 117);
 }
 
+#templates input{
+    margin-left: 10%;
+    margin-right: 2%;
+    background-color: var(--accent);
+    border: 5px outset var(--accent);
+    color: #000000;
+    border-radius: 5px;
+    width: 130px;
+    height: 30px;
+    font-weight: bold;
+}
+
+#templates input:hover{
+    background-color: var(--secondary);
+    border: 5px outset var(--secondary);
+    color: #ffffff;
+    outline: 1px solid rgb(117, 117, 117);
+    box-shadow: 2px 2px 5px rgb(117, 117, 117);
+}
+
 #goButton{
     background-color: var(--primary);
     border: 5px outset var(--primary);
