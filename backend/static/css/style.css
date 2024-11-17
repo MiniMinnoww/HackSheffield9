@@ -139,7 +139,6 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-bottom: 2%;
 }
 
 .heading-part{
