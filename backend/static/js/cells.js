@@ -97,10 +97,26 @@ class PianoCell {
         this.element.style.maxWidth = width + 50 + "px"
         this.element.style.minHeight = (width / 2) + "px"
         this.element.style.maxHeight = (width / 2) + "px"
+        this.element.style.textAlign = "right"
 
         this.element.addEventListener("mousedown", () => {
             let freq = midi_note_to_freq(this.row)
             playTone(freq, 500)
+        })
+
+        this.element.addEventListener("mouseover", () => {
+            if (mouseDown) {
+                let freq = midi_note_to_freq(this.row)
+                playTone(freq, 500)
+            }
+        })
+
+        this.element.addEventListener("mouseenter", () => {
+            this.element.innerHTML = midi_note_to_name(row) + "_"
+        })
+
+        this.element.addEventListener("mouseleave", () => {
+            this.element.innerHTML = ""
         })
     }
 }
