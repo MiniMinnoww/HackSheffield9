@@ -48,18 +48,18 @@ function playTone(frequency, duration, amp=0.2) {
     oscillator.start();
 
     // ATTACK
-    gainNode.gain.linearRampToValueAtTime(amp, audioContext.currentTime )  // Fade in to 0.2
+    gainNode.gain.linearRampToValueAtTime(amp, audioContext.currentTime + ATTACK)  // Fade in to 0.2
 
     // DECAY
     setTimeout(() => {
         gainNode.gain.linearRampToValueAtTime(amp / 2, audioContext.currentTime + DECAY )  // Fade out to sustain level (0.2)
-    }, (duration / 4));
+    }, ATTACK * 1000);
 
     // RELEASE
     setTimeout(() => {
         gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + RELEASE);  // Fade out to 0 (mute)
-        oscillator.stop(audioContext.currentTime + (duration / 4));  // Stop the oscillator after fade-out
-    }, 3*(duration / 4) );  // Stop after the tone duration minus the fade-out time
+        oscillator.stop(audioContext.currentTime + RELEASE);  // Stop the oscillator after fade-out
+    }, (ATTACK + DECAY) * 1000 );  // Stop after the tone duration minus the fade-out time
 }
 
 
@@ -83,6 +83,7 @@ let play = () => {
     const playColumn = () => {
         for (let row of midi_notes) {
             if (row[columnIndex].enabled) {
+                console.log("NOTE")
                 let freq = midi_note_to_freq(row[columnIndex].row);
                 playTone(freq, 250);
             }
@@ -96,20 +97,30 @@ let play = () => {
     let chordList = []
     for (let obj of returned_chords) chordList.push({...obj})
 
-    if (chordList.length > 0)
-        playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
+    let first = true
+
 
     // Interval to play notes at the correct BPM
     intervalId = setInterval(() => {
+        console.log("=================")
         playColumn();  // Play notes for the current column
+        if (first && chordList.length > 0) {
+            console.log("CHORD (F)")
+            if (chordList[0].length === 0) chordList[0].length = COLS - columnIndex
+            playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
+            first = false
+        }
 
         if (chordList.length > 0) {
-            chordList[0].length -= 1
+            chordList[0].length--
             if (chordList[0].length === 0) {
+                console.log(columnIndex)
                 chordList.shift()
-
-                // Play the new chord
-                if (chordList.length > 0) playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
+                first = true
+                //
+                // // Play the new chord
+                // console.log("CHORD (N)")
+                // if (chordList.length > 0) playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
             }
         }
 
