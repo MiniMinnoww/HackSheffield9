@@ -1,3 +1,5 @@
+from logic import *
+
 example_payload = {
     "chords": "10000000100000001000000010000000",
     "0": "11110011000000001111000011111111",
@@ -74,7 +76,10 @@ def on_data_received(payload):
     print_chord_dict(chord_map)
     # test ends
 
-    return dict()
+    maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
+    data_to_return=notes_in_section(chord_map, maj_chords, min_chords)
+
+    return data_to_return
 
 # on_data_received(example_payload)
 

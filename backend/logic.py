@@ -21,12 +21,12 @@ min_template = {
 }
 
 weightings = {
-    "I": 1,
-    "II": 1,
-    "III": 1,
-    "IV": 1,
-    "V": 1,
-    "VI": 1,
+    "I": 6,
+    "II": 3,
+    "III": 3,
+    "IV": 4,
+    "V": 5,
+    "VI": 2,
     "VII": 1,
 }
 
@@ -83,18 +83,50 @@ def check_notes_in_section(notes_list, maj_dict, min_dict):
     return possible_chords
 
 def notes_in_section(notes_dict, maj_dict, min_dict):
+    data_to_return = []
+    i=0
     for chord_change in notes_dict:
-        notes_list=[]
+        if i==0:
+            pass
+        else:
+            current_index=notes_dict[chord_change]["start_index"]
+            length=current_index-prev_start_index
+            chord_used["length"]=length
+            data_to_return.append(chord_used)
+        notes_list = []
         note_prevalences=notes_dict[chord_change]
         for note in note_prevalences:
             if note == "start_index":
-                pass
+                prev_start_index=notes_dict[chord_change]["start_index"]
             else:
                 notes_list.append(note)
         print(notes_list)
         possible_chords=check_notes_in_section(notes_list, maj_dict, min_dict)
         print(possible_chords)
-        print(most_likely_chord(possible_chords), "is the most likely chord for this section")
+        if len(notes_list) < 1:
+            pass
+        else:
+            print(most_likely_chord(possible_chords), "is the most likely chord for this section")
+            top_chord=most_likely_chord(possible_chords)
+        if "m" in top_chord:
+            top_chord = top_chord.replace("m","")
+            print(top_chord)
+            chord_used=dict()
+            chord_used["root"]=int(notes.index(top_chord))
+            chord_used["type"]="min"
+        else:
+            print(top_chord)
+            chord_used=dict()
+            chord_used["root"]=int(notes.index(top_chord))
+            chord_used["type"]="maj"
+        i+=1
+    current_index = notes_dict[chord_change]["start_index"]
+    length = current_index - prev_start_index
+    chord_used["length"] = length
+    data_to_return.append(chord_used)
+    print(data_to_return)
+    return data_to_return
+
 
 def most_likely_chord(possible_chords):
     top_value=0
@@ -110,5 +142,5 @@ maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
 print(print_chords(maj_chords))
 print(print_chords(min_chords))
 
-notes_dict = {0: {'start_index': 0, 'C': 6, 'Eb': 4}, 1: {'start_index': 8}, 2: {'start_index': 16, 'C': 4, 'Eb': 4}, 3: {'start_index': 24, 'C': 8, 'Eb': 8}}
-notes_in_section(notes_dict, maj_chords, min_chords)
+# notes_dict = {0: {'start_index': 0, 'C': 6, 'Eb': 4}, 1: {'start_index': 8}, 2: {'start_index': 16, 'C': 4, 'Eb': 4}, 3: {'start_index': 24, 'C': 8, 'Eb': 8}}
+# notes_in_section(notes_dict, maj_chords, min_chords)

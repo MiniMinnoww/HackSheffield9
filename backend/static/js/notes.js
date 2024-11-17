@@ -18,7 +18,7 @@ recalculateInterval()
 let playing = false
 
 // Function to play a tone with fade in and fade out
-function playTone(frequency, duration) {
+function playTone(frequency, duration, amp=0.2) {
     const oscillator = audioContext.createOscillator()
 
     const DURATION_SECONDS = duration / 1000
@@ -48,11 +48,11 @@ function playTone(frequency, duration) {
     oscillator.start();
 
     // ATTACK
-    gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime )  // Fade in to 0.2
+    gainNode.gain.linearRampToValueAtTime(amp, audioContext.currentTime )  // Fade in to 0.2
 
     // DECAY
     setTimeout(() => {
-        gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + DECAY )  // Fade out to sustain level (0.2)
+        gainNode.gain.linearRampToValueAtTime(amp / 2, audioContext.currentTime + DECAY )  // Fade out to sustain level (0.2)
     }, (duration / 4));
 
     // RELEASE
@@ -149,7 +149,7 @@ let getChordNotes = (root, chordType) => {
 
 let playChord = (notes, duration) => {
     for (let note of notes) {
-        playTone(midi_note_to_freq(note + 12), duration)
+        playTone(midi_note_to_freq(note + 12), duration, 0.1)
     }
 }
 
