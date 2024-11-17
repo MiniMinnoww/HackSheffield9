@@ -7,11 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <section id="text">
-        <h1>Music Harmonizer</h1>
-        <p>EMILY ADD THE EXPLANATION OF HOW TO USE IT</p>
+    <section id="gradient">
+        <section id="text">
+            <section class="heading-part">
+                <h1>Music<br> Harmonizer</h1>
+            </section>
+            <section class="heading-part">
+                <p>EMILY ADD THE EXPLANATION OF HOW TO USE IT</p>
+            </section>
+        </section>
+        <label>Input the bpm</label>
+        <input type="number" value="60" min="50" max="240" id="input_bpm">
+        <input type="button" value="GO!" id="goButton">
     </section>
-    <input type="button" value="GO!" id="goButton">
 
     <div id="container">
         <div id="piano">
@@ -22,7 +30,7 @@
         </main>
     </div>
 
-
+    <script src="{{ url_for('static', filename='js/cells.js') }}"></script>
     <script src="{{ url_for('static', filename='js/notes.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
