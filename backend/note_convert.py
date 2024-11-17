@@ -67,7 +67,7 @@ def print_chord_dict(chord_dict):
             if note != "start_index":
                 section_string += str(chord_dict[section][note]) + " quavers of " + note + "\n"
         output += section_string + "\n\n"
-    print(output)
+    # print(output)
 
 def on_data_received(payload):
     chord_map = create_full_chord_dict(payload)
