@@ -1,6 +1,7 @@
 /*the colours have been checked and are accessible for multiple forms of colour blindness*/
 :root {
     --background: #f3f7fc;
+    --greyishBackground: #e9edf3;
     --secondary: #c88be3;
     --accent: #c101ba;
     --lighter: #8ec7ff;
@@ -21,11 +22,11 @@
 }
 
 .cell-on {
-    background-color: var(--accent);
+    background-color: var(--accent) !important;
 }
 
 .cell-off:hover {
-    background-color: var(--secondary);
+    background-color: var(--secondary) !important;
 }
 
 .chord-cell-on {

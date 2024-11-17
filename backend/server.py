@@ -10,10 +10,13 @@ def index():
 def api_data():
     if request.method == 'POST':
         data = request.json  # Parse JSON data from the templates
-        data_returned = note_convert.on_data_received(data)
 
-        # TODO: Replace with "data_returned" when emilys part of the program is done
-        return jsonify([{ "root": 0, "type": "maj", "length": 8 }, { "root": 7, "type": "maj", "length": 8 }, { "root": 9, "type": "min", "length": 8 }, { "root": 5, "type": "maj", "length": 8 }])
+        # TODO: Switch around these comments when emilys part of the program is done
+        data_returned = [{"root": 0, "type": "maj", "length": 8}, {"root": 7, "type": "maj", "length": 8},
+                         {"root": 9, "type": "min", "length": 8}, {"root": 5, "type": "maj", "length": 8}]
+        #data_returned = note_convert.on_data_received(data)
+
+        return jsonify(data_returned)
     return jsonify({"data": "Hello from the backend!"})
 
 if __name__ == '__main__':

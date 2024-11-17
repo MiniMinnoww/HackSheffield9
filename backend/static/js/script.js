@@ -1,11 +1,7 @@
 console.log("Started JS!")
 // Will be a list of the chords
 let returned_chords = []
-let notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
-midi_note_to_name = (noteNumber) => {
-    return notes[noteNumber % 12]
-}
 
 // Send data to Flask
 let send_data = (payload) => {
@@ -30,18 +26,9 @@ let send_data = (payload) => {
         .catch(error => console.error('Error:', error));
 }
 
-
 const COLS = 32
 const ROWS = 24
 
-let mouseDown = false
-
-let midi_note_to_freq = (note) => {
-    return 440 * Math.pow(2, ((note + 48) - 69) / 12)
-}
-
-document.addEventListener("mousedown", () => {if (!mouseDown) mouseDown = true})
-document.addEventListener("mouseup", () => {if (mouseDown) mouseDown = false})
 
 
 // Create notes
@@ -81,7 +68,7 @@ for (let p = ROWS - 1; p >= 0; p--) {
     pianoRoll.appendChild(cell)
     cell.classList.add("cell")
 
-    let pianoCell = new PianoCell(p, cell, [1, 3, 6, 8, 10].includes(p % 12))
+    let pianoCell = new PianoCell(p, cell, isKeyBlack(p))
 
     pianoNotes.push(pianoCell)
 }
@@ -108,9 +95,6 @@ for (let i = ROWS - 1; i >= 0; i--) {
 
 
 }
-
-// Make piano roll UI
-
 document.getElementById("goButton").addEventListener("click", (e) => {
     let generatePayload = () => {
         let payload = {}

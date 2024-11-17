@@ -122,10 +122,6 @@ let play = () => {
     }, interval);
 };
 
-
-
-
-
 // Chord constructor
 let getChordNotes = (root, chordType) => {
     let chord

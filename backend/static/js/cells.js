@@ -17,6 +17,12 @@ class Cell {
 
         this.element.addEventListener("mousedown", () => {this.toggle()})
         this.element.addEventListener('mouseover', (e) => {this.onMouseOver(e)})
+
+       this.toggleBlackKeyStyle()
+    }
+
+    toggleBlackKeyStyle() {
+        if (isKeyBlack(this.row)) this.element.style.backgroundColor = 'var(--greyishBackground)'
     }
 
     toggle() {
@@ -52,6 +58,8 @@ class ChordCell extends Cell {
         this.element.classList.remove('cell-off')
         this.element.classList.add('chord-cell-off')
     }
+
+    toggleBlackKeyStyle() {}
 
     updateUI() {
         this.element.classList.remove(this.enabled ? "chord-cell-off" : "chord-cell-on")
