@@ -1,4 +1,4 @@
-import logic
+from logic import *
 
 example_payload = {
     "chords": "10000000100000001000000010000000",
@@ -77,7 +77,7 @@ def on_data_received(payload):
     # test ends
 
     maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
-    data_to_return=notes_in_section(chord_map, maj_dict, min_dict)
+    data_to_return=notes_in_section(chord_map, maj_chords, min_chords)
 
     return data_to_return
 

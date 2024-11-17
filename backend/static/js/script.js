@@ -12,7 +12,6 @@ let send_data = (payload) => {
             console.log("loading data")
             let i = 0
             for (let cell of chords) {
-
                 if (cell.enabled) {
                     console.log(cell)
                     let root = midi_note_to_name(returned_chords[i].root)
@@ -105,7 +104,7 @@ document.getElementById("goButton").addEventListener("click", (e) => {
             payload["chords"] += chord.enabled ? "1" : "0"
         }
 
-        for (let row of midi_notes) {
+        for (let row of midi_notes.toReversed()) {
             payload[note] = ""
             for (let cell of row) {
                 payload[note] += cell.enabled ? "1" : "0"

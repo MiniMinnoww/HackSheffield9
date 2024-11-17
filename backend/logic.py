@@ -21,12 +21,12 @@ min_template = {
 }
 
 weightings = {
-    "I": 1,
-    "II": 1,
-    "III": 1,
-    "IV": 1,
-    "V": 1,
-    "VI": 1,
+    "I": 6,
+    "II": 3,
+    "III": 3,
+    "IV": 4,
+    "V": 5,
+    "VI": 2,
     "VII": 1,
 }
 
@@ -109,7 +109,7 @@ def notes_in_section(notes_dict, maj_dict, min_dict):
             print(most_likely_chord(possible_chords), "is the most likely chord for this section")
             top_chord=most_likely_chord(possible_chords)
         if "m" in top_chord:
-            top_chord.replace("m","")
+            top_chord = top_chord.replace("m","")
             print(top_chord)
             chord_used=dict()
             chord_used["root"]=int(notes.index(top_chord))
