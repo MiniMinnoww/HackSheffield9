@@ -27,7 +27,7 @@ let send_data = (payload) => {
 }
 
 const COLS = 32
-const ROWS = 24
+const ROWS = 25
 
 
 
