@@ -16,12 +16,7 @@ class Cell {
         this.element.style.maxHeight = (width / 2) + "px"
 
         this.element.addEventListener("mousedown", () => {this.toggle()})
-        this.element.addEventListener('mouseover', (e) => {
-            if (mouseDown && this.canBeToggled) this.toggle()
-
-            this.canBeToggled = false
-            document.addEventListener("mouseup", () => {this.canBeToggled = true})
-        })
+        this.element.addEventListener('mouseover', (e) => {this.onMouseOver(e)})
     }
 
     toggle() {
@@ -31,6 +26,13 @@ class Cell {
         if (this.enabled) {
             playTone(midi_note_to_freq(this.row), 500)
         }
+    }
+
+    onMouseOver(e) {
+        if (mouseDown && this.canBeToggled) this.toggle()
+
+        this.canBeToggled = false
+        document.addEventListener("mouseup", () => {this.canBeToggled = true})
     }
 
     updateUI() {
@@ -50,13 +52,25 @@ class ChordCell extends Cell {
         this.element.classList.remove('cell-off')
         this.element.classList.add('chord-cell-off')
     }
+
     updateUI() {
         this.element.classList.remove(this.enabled ? "chord-cell-off" : "chord-cell-on")
         this.element.classList.add(this.enabled ? "chord-cell-on" : "chord-cell-off")
+
+        if (!this.enabled) this.element.innerHTML = ""
+    }
+
+    setChordText(root, type) {
+        this.element.innerHTML = "<p><b>" + root + "</b>" + type + "</p>"
     }
 
     toggle_on() {
         this.enabled = true
+        this.updateUI()
+    }
+
+    toggle() {
+        this.enabled = !this.enabled
         this.updateUI()
     }
 }
@@ -70,12 +84,15 @@ class PianoCell {
         if (black) this.element.classList.add('black-key')
         else this.element.classList.add('key')
 
-        let width = (((screen.width - 200) / COLS))
-        this.element.style.minWidth = width + "px"
-        this.element.style.maxWidth = width + "px"
+        let width = ((screen.width - 200) / COLS)
+        this.element.style.minWidth = width + 50 + "px"
+        this.element.style.maxWidth = width + 50 + "px"
         this.element.style.minHeight = (width / 2) + "px"
         this.element.style.maxHeight = (width / 2) + "px"
 
-        this.element.addEventListener("mousedown", () => {playTone(midi_note_to_freq(this.row), 500)})
+        this.element.addEventListener("mousedown", () => {
+            let freq = midi_note_to_freq(this.row)
+            playTone(freq, 500)
+        })
     }
 }

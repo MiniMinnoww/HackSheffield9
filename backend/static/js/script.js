@@ -1,24 +1,31 @@
 console.log("Started JS!")
-
-// Fetch data from Flask
-let fetch_data = () => {
-    fetch('/api/data') // Call Flask's GET endpoint
-        .then(response => response.json())
-        .then(data => {
-            console.log(JSON.stringify(data, null, 2))
-        })
-        .catch(error => console.error('Error:', error));
-}
-
 // Will be a list of the chords
-let returned_chords = [{ root: 0, type: "maj", length: 8 }, { root: 7, type: "maj", length: 8 }, { root: 9, type: "min", length: 8 }, { root: 5, type: "maj", length: 8 }]
+let returned_chords = []
+let notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+
+midi_note_to_name = (noteNumber) => {
+    return notes[noteNumber % 12]
+}
 
 // Send data to Flask
 let send_data = (payload) => {
     fetch('/api/data', {method: 'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify(payload),})
         .then(response => response.json())
         .then(data => {
-            console.log(JSON.stringify(data, null, 2))
+            returned_chords = data
+            console.log("loading data")
+            let i = 0
+            for (let cell of chords) {
+
+                if (cell.enabled) {
+                    console.log(cell)
+                    let root = midi_note_to_name(returned_chords[i].root)
+                    let type = returned_chords[i].type
+                    console.log(root)
+                    cell.setChordText(root, type)
+                    i++
+                }
+            }
         })
         .catch(error => console.error('Error:', error));
 }
@@ -87,13 +94,13 @@ for (let i = ROWS - 1; i >= 0; i--) {
 
     let div = document.createElement("div")
     div.classList.add("row")
-    midi_roll.insertChild
     midi_roll.appendChild(div)
 
     for (let j = 0; j < COLS; j++) {
         let cell = document.createElement("div")
         div.appendChild(cell)
         cell.classList.add("cell")
+        if (j % 8 === 0) cell.classList.add("bar-line")
 
         row.push(new Cell(i, j, cell))
     }

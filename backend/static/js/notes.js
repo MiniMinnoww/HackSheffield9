@@ -6,9 +6,15 @@ updateCursorUI = (num) => {
 }
 
 let intervalId
-const bpm = 100
-let interval = ((60 / bpm) / 8) * 1000
-console.log(interval)
+
+let bpmInput = document.getElementById("input_bpm")
+let getBPM = () => {return bpmInput.value}
+let interval
+
+let recalculateInterval = () => {interval = ((60 / getBPM()) / 8) * 1000}
+recalculateInterval()
+
+
 let playing = false
 
 // Function to play a tone with fade in and fade out
@@ -16,9 +22,9 @@ function playTone(frequency, duration) {
     const oscillator = audioContext.createOscillator()
 
     const DURATION_SECONDS = duration / 1000
-    const ATTACK = DURATION_SECONDS / 4
-    const DECAY = ATTACK
-    const RELEASE = ATTACK
+    const ATTACK = 0.05
+    const DECAY = DURATION_SECONDS / 4
+    const RELEASE = DURATION_SECONDS / 4
 
     // Set the oscillator frequency
     oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
@@ -42,7 +48,7 @@ function playTone(frequency, duration) {
     oscillator.start();
 
     // ATTACK
-    gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + ATTACK )  // Fade in to 0.2
+    gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime )  // Fade in to 0.2
 
     // DECAY
     setTimeout(() => {
@@ -68,21 +74,16 @@ let play = () => {
 
     playing = true
 
+    recalculateInterval()
+
     let columnIndex = 0;
     updateCursorUI(0)
-
-    const playRow = (row) => {
-        if (midi_notes[row][columnIndex].enabled) {
-            console.log(`Playing note at row ${row}, column ${columnIndex}`)
-        }
-    }
 
     // Function to advance to the next column and play the notes
     const playColumn = () => {
         for (let row of midi_notes) {
             if (row[columnIndex].enabled) {
                 let freq = midi_note_to_freq(row[columnIndex].row);
-                console.log(interval)
                 playTone(freq, 250);
             }
         }
@@ -92,40 +93,36 @@ let play = () => {
         updateCursorUI(columnIndex)
     };
 
-    let chordList = [...returned_chords]
+    let chordList = []
+    for (let obj of returned_chords) chordList.push({...obj})
+
+    if (chordList.length > 0)
+        playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
 
     // Interval to play notes at the correct BPM
     intervalId = setInterval(() => {
         playColumn();  // Play notes for the current column
 
         if (chordList.length > 0) {
-            console.log(chordList[0])
             chordList[0].length -= 1
             if (chordList[0].length === 0) {
                 chordList.shift()
 
                 // Play the new chord
-                playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
+                if (chordList.length > 0) playChord(getChordNotes(chordList[0].root, chordList[0].type), chordList[0].length * interval)
             }
         }
 
-
-
-
-        // Stop when you've looped through all columns (optional)
+        // Stop when you've looped through all columns
         if (columnIndex === 0) {
-            clearInterval(intervalId);
+            clearInterval(intervalId)
+            updateCursorUI(-1)
             playing = false
         }
     }, interval);
 };
 
-document.addEventListener("keydown", (event) => {
-    // Check if the pressed key is the space bar
-    if (event.code === "Space" || event.key === " ") {
-        play();
-    }
-})
+
 
 
 
@@ -159,13 +156,12 @@ let playChord = (notes, duration) => {
         playTone(midi_note_to_freq(note + 12), duration)
     }
 }
+
+// Event listeners
 document.addEventListener("keydown", (event) => {
-    // Check if the pressed key is the enter key (Debugging)
-    // TODO: REMOVE
-    if (event.key === "Enter") {
-        let root = parseInt(prompt("Chord Root Note"))
-        let type = prompt("Chord Type")
-        playChord(getChordNotes(root, type), 2000)
+    // Check if the pressed key is the space bar
+    if (event.code === "Space" || event.key === " ") {
+        play();
     }
 })
 
