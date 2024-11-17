@@ -114,6 +114,7 @@ def notes_in_section(notes_dict, maj_dict, min_dict):
             chord_used=dict()
             chord_used["root"]=int(notes.index(top_chord))
             chord_used["type"]="min"
+            top_chord+="m"
         else:
             print(top_chord)
             chord_used=dict()
