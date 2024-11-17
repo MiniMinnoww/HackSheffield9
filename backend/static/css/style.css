@@ -114,8 +114,11 @@ input[type="number"]:hover{
     box-shadow: 2px 2px 5px rgb(117, 117, 117);
 }
 
-#templates input{
+#templates{
     margin-left: 10%;
+}
+
+#templates input{
     margin-right: 2%;
     background-color: var(--accent);
     border: 5px outset var(--accent);
