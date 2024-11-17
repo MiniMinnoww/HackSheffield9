@@ -114,8 +114,16 @@ input[type="number"]:hover{
     box-shadow: 2px 2px 5px rgb(117, 117, 117);
 }
 
-#templates{
+#buttons{
     margin-left: 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 39%;
+    /*width: 90%;*/
+}
+
+#templates {
+    display: flex;
 }
 
 #templates input{
@@ -153,6 +161,29 @@ input[type="number"]:hover{
     border: 5px outset var(--lighter);
     color: #ffffff;
     /*makes the button more accessible by emphasising the button is hovered over*/
+    outline: 1px solid rgb(117, 117, 117);
+    box-shadow: 2px 2px 5px rgb(117, 117, 117);
+}
+
+#reset-button {
+    justify-self: end;
+}
+
+#resetTable{
+    margin-right: 1%;
+    background-color: rgb(198, 118, 13);
+    border: 5px outset rgb(198, 118, 13);
+    color: #000000;
+    border-radius: 5px;
+    width: 130px;
+    height: 30px;
+    font-weight: bold;
+}
+
+#resetTable:hover{
+    background-color: rgb(211, 170, 112);
+    border: 5px outset rgb(211, 170, 112);
+    color: #ffffff;
     outline: 1px solid rgb(117, 117, 117);
     box-shadow: 2px 2px 5px rgb(117, 117, 117);
 }
