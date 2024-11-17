@@ -94,28 +94,29 @@ for (let i = ROWS - 1; i >= 0; i--) {
 
 
 }
-document.getElementById("goButton").addEventListener("click", (e) => {
-    let generatePayload = () => {
-        let payload = {}
-        let note = 0
 
-        payload["chords"] = ""
-        for (let chord of chords) {
-            payload["chords"] += chord.enabled ? "1" : "0"
-        }
+let generatePayload = () => {
+    let payload = {}
+    let note = 0
 
-        for (let row of midi_notes.toReversed()) {
-            payload[note] = ""
-            for (let cell of row) {
-                payload[note] += cell.enabled ? "1" : "0"
-            }
-
-            note++
-        }
-
-        return payload
+    payload["chords"] = ""
+    for (let chord of chords) {
+        payload["chords"] += chord.enabled ? "1" : "0"
     }
 
+    for (let row of midi_notes.toReversed()) {
+        payload[note] = ""
+        for (let cell of row) {
+            payload[note] += cell.enabled ? "1" : "0"
+        }
+
+        note++
+    }
+
+    return payload
+}
+
+document.getElementById("goButton").addEventListener("click", (e) => {
     let payload = generatePayload()
     send_data(payload)
 })

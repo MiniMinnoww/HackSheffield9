@@ -69,7 +69,8 @@ class ChordCell extends Cell {
     }
 
     setChordText(root, type) {
-        this.element.innerHTML = "<p><b>" + root + "</b>" + type + "</p>"
+        this.element.style.color = "#FFFFFF"
+        this.element.innerHTML = "<b>" + root + "</b>" + type
     }
 
     toggle_on() {
