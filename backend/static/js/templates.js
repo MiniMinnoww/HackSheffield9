@@ -66,10 +66,14 @@ load_template = (index) => {
     returned_chords = []
     let template = templates[index]
 
+    load_template_woo(template)
+}
+
+load_template_woo = (template) => {
     bpmInput.value = template["speed"]
 
-    for (idx in template["chords"]) {
-        char = template["chords"][idx]
+    for (let idx in template["chords"]) {
+        let char = template["chords"][idx]
         chords[idx].enabled = char === "1"
         chords[idx].updateUI()
     }
