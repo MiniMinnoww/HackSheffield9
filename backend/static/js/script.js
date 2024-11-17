@@ -99,6 +99,8 @@ let generatePayload = () => {
     let payload = {}
     let note = 0
 
+    payload["speed"] = bpmInput.value
+
     payload["chords"] = ""
     for (let chord of chords) {
         payload["chords"] += chord.enabled ? "1" : "0"
@@ -120,3 +122,34 @@ document.getElementById("goButton").addEventListener("click", (e) => {
     let payload = generatePayload()
     send_data(payload)
 })
+
+reset = () => {
+    for (let row of midi_notes) {
+        for (let cell of row) {
+            cell.enabled = false
+            cell.updateUI()
+        }
+    }
+
+    bpmInput.value = 30
+
+    returned_chords = []
+    for (let chordIndex in chords) {
+        chords[chordIndex].enabled = chordIndex % 8 === 0
+        chords[chordIndex].updateUI()
+    }
+
+    localStorage.setItem('saveData', JSON.stringify(generatePayload()))
+}
+
+setInterval(() => {save()}, 1000)
+
+let save = () => {
+    localStorage.setItem('saveData', JSON.stringify(generatePayload()))
+}
+
+let resetButton = document.getElementById("resetTable")
+resetButton.addEventListener("click", (e) => {reset()})
+
+load_template_woo(JSON.parse(localStorage.getItem('saveData')))
+
