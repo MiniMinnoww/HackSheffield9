@@ -13,8 +13,8 @@ def index():
 def api_data():
     if request.method == 'POST':
         data = request.json  # Parse JSON data from the templates
-        key = note_convert.notes[get_key_centre(get_all_notes(data))]
-        print(f"{key[0]} maj is the key with {key[1]} probability")
+        key = get_key_centre(get_all_notes(data))
+        print(f"{note_convert.notes[key[0]]} maj is the key with {key[1]} of all notes")
         # print(data)
 
         # data_returned = [{"root": 0, "type": "maj", "length": 8}, {"root": 7, "type": "maj", "length": 8},
@@ -48,7 +48,8 @@ def get_key_centre(melody_notes):
                     possibilities[i] += melody_notes[note]
                     total += melody_notes[note]
     sorted_possibilities = dict(sorted(possibilities.items(), key=lambda item: item[1], reverse=True))
-    return list(sorted_possibilities.keys())[0], f"{(sorted_possibilities[list(sorted_possibilities.keys())[0]] / total)}%"
+    print(sorted_possibilities)
+    return list(sorted_possibilities.keys())[0], f"{(sorted_possibilities[list(sorted_possibilities.keys())[0]] / total * 100)}%"
 
 
 
