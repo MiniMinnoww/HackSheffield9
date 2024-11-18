@@ -1,6 +1,7 @@
 console.log("Started JS!")
 // Will be a list of the chords
 let returned_chords = []
+let current_key = -1
 
 
 // Send data to Flask
@@ -25,7 +26,7 @@ let send_data = (payload) => {
         .catch(error => console.error('Error:', error));
 }
 
-const COLS = 64
+const COLS = 32
 const ROWS = 25
 
 
@@ -152,4 +153,25 @@ let resetButton = document.getElementById("resetTable")
 resetButton.addEventListener("click", (e) => {reset()})
 
 load_template_woo(JSON.parse(localStorage.getItem('saveData')))
+
+key_input = document.getElementById("input_key")
+key_input.onchange = (e) => {
+    current_key = parseInt(key_input.value)
+    if (current_key === -1) {
+        for (let row in midi_notes) {
+            for (let cell of midi_notes[row])
+                cell.toggleInKeyStyle(false)
+            }
+        return
+    }
+
+    let notes_in_key_template = [0, 2, 4, 5, 7, 9, 11]
+    let notes_in_key = []
+    for (let note of notes_in_key_template) notes_in_key.push((note + current_key) % 12)
+
+    for (let row in midi_notes) {
+        for (let cell of midi_notes[row])
+            cell.toggleInKeyStyle(notes_in_key.includes((cell.row % 12)))
+    }
+}
 

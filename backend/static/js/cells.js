@@ -18,11 +18,17 @@ class Cell {
         this.element.addEventListener("mousedown", () => {this.toggle()})
         this.element.addEventListener('mouseover', (e) => {this.onMouseOver(e)})
 
-       this.toggleBlackKeyStyle()
+        this.toggleBlackKeyStyle()
+        this.toggleInKeyStyle()
     }
 
     toggleBlackKeyStyle() {
         if (isKeyBlack(this.row)) this.element.style.backgroundColor = 'var(--greyishBackground)'
+    }
+
+    toggleInKeyStyle(i) {
+        if (i) this.element.style.backgroundColor = '#edc3c3'
+        else this.element.style.backgroundColor = ''
     }
 
     toggle() {
