@@ -25,7 +25,7 @@ let send_data = (payload) => {
         .catch(error => console.error('Error:', error));
 }
 
-const COLS = 32
+const COLS = 64
 const ROWS = 25
 
 
