@@ -75,6 +75,10 @@
     margin-left: auto;
 }
 
+.key:hover {
+    background-color: #AAAAAA;
+}
+
 .black-key {
     background-image: linear-gradient(to right, black 0%, black 50%, white 51%, white 100%);
     margin-right: 0;
@@ -85,9 +89,7 @@
     background-image: linear-gradient(to right, black 0%, black 50%, #AAAAAA 51%, #AAAAAA 100%);
 }
 
-.key:hover {
-    background-color: #AAAAAA;
-}
+
 
 #bpm {
     /*

@@ -27,7 +27,7 @@ class Cell {
     }
 
     toggleInKeyStyle(i) {
-        if (i) this.element.style.backgroundColor = '#edc3c3'
+        if (i) this.element.style.backgroundColor = '#edd7d7'
         else this.element.style.backgroundColor = ''
     }
 
