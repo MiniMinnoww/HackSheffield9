@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import note_convert
-from logic import maj_template
-from note_convert import example_payload, print_chord_dict
 
 app = Flask(__name__)
 
