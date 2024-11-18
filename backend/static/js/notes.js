@@ -18,7 +18,7 @@ recalculateInterval()
 let playing = false
 
 // Function to play a tone with fade in and fade out
-function playTone(frequency, duration, amp=0.2) {
+function playTone(frequency, duration, amp=0.4) {
     const oscillator = audioContext.createOscillator()
 
     const DURATION_SECONDS = duration / 1000
@@ -160,7 +160,7 @@ let getChordNotes = (root, chordType) => {
 
 let playChord = (notes, duration) => {
     for (let note of notes) {
-        playTone(midi_note_to_freq(note + 12), duration, 0.1)
+        playTone(midi_note_to_freq(note + 12), duration, 0.2)
     }
 }
 
