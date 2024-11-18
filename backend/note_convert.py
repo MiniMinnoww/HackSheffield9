@@ -162,7 +162,7 @@ def on_data_received(payload):
 
     # Example of further processing (depends on external logic not included in this code).
     maj_chords, min_chords = complete_chords(notes, maj_template, min_template)  # External
-    data_to_return = notes_in_section(chord_map, maj_chords, min_chords)  # External
+    data_to_return = notes_in_section(chord_map, maj_chords, min_chords, payload)  # External
 
     return data_to_return
 

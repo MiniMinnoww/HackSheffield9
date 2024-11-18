@@ -1,3 +1,5 @@
+import key_centre
+
 # List of note names representing the chromatic scale.
 notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
@@ -132,13 +134,14 @@ def check_notes_in_section(notes_list, maj_dict, min_dict):
         possible_chords = check_all_chords(note, possible_chords, maj_dict, min_dict)
     return possible_chords
 
-def notes_in_section(notes_dict, maj_dict, min_dict):
+def notes_in_section(notes_dict, maj_dict, min_dict, payload):
     """
     Processes a section of notes and determines the most likely chord for each section.
 
     :param notes_dict: Dictionary of note occurrences in each section.
     :param maj_dict: Dictionary of major chords.
     :param min_dict: Dictionary of minor chords.
+    :param payload: The payload sent from the client.
     :return: List of dictionaries representing detected chords, their type, root, and length.
     """
     data_to_return = []
@@ -165,6 +168,15 @@ def notes_in_section(notes_dict, maj_dict, min_dict):
 
         # Determine the most likely chord for the current section.
         possible_chords = check_notes_in_section(notes_list, maj_dict, min_dict)
+
+        extra_weights = key_centre.get_weights_for_chords_in_key(payload)
+        for weight in extra_weights:
+            for chord in possible_chords:
+                if weight == chord:
+                    print("Found equal chord")
+                    possible_chords[chord] += extra_weights[weight]
+
+
         if len(notes_list) < 1:
             pass
         else:
