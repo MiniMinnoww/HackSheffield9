@@ -11,7 +11,7 @@ def get_related_note(note, semitones):
     :param semitones: The number of semitones to move up (positive) or down (negative).
     :return: The resulting note.
     """
-    return notes[(notes.index(note) + semitones) % 12]
+    return NOTES[(NOTES.index(note) + semitones) % 12]
 
 def complete_chords(notes_list, intervals):
     """
@@ -69,7 +69,7 @@ def check_all_chords(note, possible_chords, chord_dict):
             chord_id = chord + " " + chord_type
 
             if note in chord_dict[chord_type][chord]:
-                weighting = weightings[chord_dict[chord_type][chord][note]]
+                weighting = INTERVAL_WEIGHTING[chord_dict[chord_type][chord][note]]
                 if chord_id in possible_chords:
                     possible_chords[chord_id] += weighting
                 else:
@@ -138,7 +138,7 @@ def notes_in_section(notes_dict, chord_dict, payload):
 
         # Determine chord type (major or minor).
         chord_used = {
-            "root": int(notes.index(top_chord.split(" ")[0])),
+            "root": int(NOTES.index(top_chord.split(" ")[0])),
             "type": top_chord.split(" ")[1]
         }
 

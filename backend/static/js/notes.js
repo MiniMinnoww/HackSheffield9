@@ -150,6 +150,9 @@ let getChordNotes = (root, chordType) => {
         case "7":
             chord = [root, root+4, root+7, root+10]
             break
+        case "dim":
+            chord = [root, root+3, root+6, root+10]
+            break
         default:
             chord = [root]
             break

@@ -1,7 +1,7 @@
-notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+NOTES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
 
-basic_intervals_template = {
+INTERVAL_TEMPLATES = {
     "maj": {
         "I": 0,    # Root
         "II": 2,   # Major second
@@ -31,7 +31,7 @@ basic_intervals_template = {
 }
 
 # Weightings for each interval, indicating their importance in chord identification.
-weightings = {
+INTERVAL_WEIGHTING = {
     "I": 6,  # Root is the most important
     "II": 3, # Major/Minor second
     "III": 3, # Major/Minor third

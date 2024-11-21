@@ -14,10 +14,7 @@ def api_data():
         data_returned = note_convert.on_data_received(data)
 
         return jsonify(data_returned)
-    return jsonify({"data": "Hello from the backend!"})
-
-
-
+    return jsonify({"data": "An error occurred"})
 
 
 if __name__ == '__main__':

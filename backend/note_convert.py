@@ -37,7 +37,7 @@ def create_full_chord_dict(payload):
     for midi_note in payload:
         try:
             # Map MIDI note number to its corresponding note name.
-            note = notes[int(midi_note) % 12]
+            note = NOTES[int(midi_note) % 12]
 
             # Split the note profile into sections based on the chord profile.
             note_sections = split_note_profile(payload[midi_note], chord_profile)
@@ -151,7 +151,7 @@ def on_data_received(payload):
     print_chord_dict(chord_map)
 
     # Example of further processing (depends on external logic not included in this code).
-    chords = complete_chords(notes, basic_intervals_template)  # External
+    chords = complete_chords(NOTES, INTERVAL_TEMPLATES)  # External
     data_to_return = notes_in_section(chord_map, chords, payload)  # External
 
     return data_to_return

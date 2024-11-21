@@ -1,14 +1,5 @@
 import note_convert
-
-new_maj_template = {
-    "I": 0,    # Root
-    "II": 2,   # Major second
-    "III": 4,  # Major third
-    "IV": 5,   # Perfect fourth
-    "V": 7,    # Perfect fifth
-    "VI": 9,   # Major sixth
-    "VII": 11, # Major seventh
-}
+from constants import *
 
 def get_all_notes(payload):
     notes = {}
@@ -25,7 +16,7 @@ def get_key_centre(melody_notes):
     # Go through each key
     for i in range(12):
         possibilities[i] = 0
-        for note_in_scale in new_maj_template.values():
+        for note_in_scale in INTERVAL_TEMPLATES["maj"].values():
             for note in melody_notes:
                 if melody_notes[note] == 0: continue
                 note_mod = note % 12
@@ -57,6 +48,6 @@ def get_weights_for_chords_in_key(payload):
     new_chords = {}
     for dict_key, item in chords.items():
         note = (int(dict_key[0]) + section_key) % 12
-        new_chords[note_convert.notes[note] + dict_key[1:]] = item
+        new_chords[note_convert.NOTES[note] + dict_key[1:]] = item
 
     return new_chords

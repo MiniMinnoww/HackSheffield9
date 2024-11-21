@@ -76,7 +76,8 @@ class ChordCell extends Cell {
 
     setChordText(root, type) {
         this.element.style.color = "#FFFFFF"
-        this.element.innerHTML = "<b>" + root + "</b>" + type
+        let type_to_display_conversion = {"maj": "", "min": "m", "dim": "°"}
+        this.element.innerHTML = "<b>" + root + "</b>" + type_to_display_conversion[type]
     }
 
     toggle_on() {
