@@ -1,12 +1,75 @@
 {
   "training_data": [
-    {
-      "notes":  {"C": 3, "A": 2, "E": 4},
-      "output": {"root": 9, "type":  "min"}
-    },
-    {
-      "notes":  {"C": 2, "E": 5, "G": 1},
-      "output": {"root": 0, "type":  "maj"}
-    }
+    {"notes": {"C": 1, "E": 1, "G": 1}, "output": {"root": 0, "type": "maj"}},
+    {"notes": {"C": 1, "Eb": 1, "G": 1}, "output": {"root": 0, "type": "min"}},
+    {"notes": {"C": 1, "F": 1, "G": 1}, "output": {"root": 0, "type": "sus4"}},
+    {"notes": {"C": 1, "D": 1, "G": 1}, "output": {"root": 0, "type": "sus2"}},
+    {"notes": {"C": 1, "Eb": 1, "Gb": 1}, "output": {"root": 0, "type": "dim"}},
+
+    {"notes": {"Db": 1, "F": 1, "Ab": 1}, "output": {"root": 1, "type": "maj"}},
+    {"notes": {"Db": 1, "E": 1, "Ab": 1}, "output": {"root": 1, "type": "min"}},
+    {"notes": {"Db": 1, "Gb": 1, "Ab": 1}, "output": {"root": 1, "type": "sus4"}},
+    {"notes": {"Db": 1, "Eb": 1, "Ab": 1}, "output": {"root": 1, "type": "sus2"}},
+    {"notes": {"Db": 1, "E": 1, "G": 1}, "output": {"root": 1, "type": "dim"}},
+
+    {"notes": {"D": 1, "Gb": 1, "A": 1}, "output": {"root": 2, "type": "maj"}},
+    {"notes": {"D": 1, "F": 1, "A": 1}, "output": {"root": 2, "type": "min"}},
+    {"notes": {"D": 1, "G": 1, "A": 1}, "output": {"root": 2, "type": "sus4"}},
+    {"notes": {"D": 1, "E": 1, "A": 1}, "output": {"root": 2, "type": "sus2"}},
+    {"notes": {"D": 1, "F": 1, "Ab": 1}, "output": {"root": 2, "type": "dim"}},
+
+    {"notes": {"Eb": 1, "G": 1, "Bb": 1}, "output": {"root": 3, "type": "maj"}},
+    {"notes": {"Eb": 1, "Gb": 1, "Bb": 1}, "output": {"root": 3, "type": "min"}},
+    {"notes": {"Eb": 1, "Ab": 1, "Bb": 1}, "output": {"root": 3, "type": "sus4"}},
+    {"notes": {"Eb": 1, "F": 1, "Bb": 1}, "output": {"root": 3, "type": "sus2"}},
+    {"notes": {"Eb": 1, "Gb": 1, "A": 1}, "output": {"root": 3, "type": "dim"}},
+
+    {"notes": {"E": 1, "Ab": 1, "B": 1}, "output": {"root": 4, "type": "maj"}},
+    {"notes": {"E": 1, "G": 1, "B": 1}, "output": {"root": 4, "type": "min"}},
+    {"notes": {"E": 1, "A": 1, "B": 1}, "output": {"root": 4, "type": "sus4"}},
+    {"notes": {"E": 1, "Gb": 1, "B": 1}, "output": {"root": 4, "type": "sus2"}},
+    {"notes": {"E": 1, "G": 1, "Bb": 1}, "output": {"root": 4, "type": "dim"}},
+
+    {"notes": {"F": 1, "A": 1, "C": 1}, "output": {"root": 5, "type": "maj"}},
+    {"notes": {"F": 1, "Ab": 1, "C": 1}, "output": {"root": 5, "type": "min"}},
+    {"notes": {"F": 1, "Bb": 1, "C": 1}, "output": {"root": 5, "type": "sus4"}},
+    {"notes": {"F": 1, "G": 1, "C": 1}, "output": {"root": 5, "type": "sus2"}},
+    {"notes": {"F": 1, "Ab": 1, "B": 1}, "output": {"root": 5, "type": "dim"}},
+
+    {"notes": {"Gb": 1, "Bb": 1, "Db": 1}, "output": {"root": 6, "type": "maj"}},
+    {"notes": {"Gb": 1, "A": 1, "Db": 1}, "output": {"root": 6, "type": "min"}},
+    {"notes": {"Gb": 1, "B": 1, "Db": 1}, "output": {"root": 6, "type": "sus4"}},
+    {"notes": {"Gb": 1, "Ab": 1, "Db": 1}, "output": {"root": 6, "type": "sus2"}},
+    {"notes": {"Gb": 1, "A": 1, "C": 1}, "output": {"root": 6, "type": "dim"}},
+
+    {"notes": {"G": 1, "B": 1, "D": 1}, "output": {"root": 7, "type": "maj"}},
+    {"notes": {"G": 1, "Bb": 1, "D": 1}, "output": {"root": 7, "type": "min"}},
+    {"notes": {"G": 1, "C": 1, "D": 1}, "output": {"root": 7, "type": "sus4"}},
+    {"notes": {"G": 1, "A": 1, "D": 1}, "output": {"root": 7, "type": "sus2"}},
+    {"notes": {"G": 1, "Bb": 1, "Db": 1}, "output": {"root": 7, "type": "dim"}},
+
+    {"notes": {"Ab": 1, "C": 1, "Eb": 1}, "output": {"root": 8, "type": "maj"}},
+    {"notes": {"Ab": 1, "B": 1, "Eb": 1}, "output": {"root": 8, "type": "min"}},
+    {"notes": {"Ab": 1, "Db": 1, "Eb": 1}, "output": {"root": 8, "type": "sus4"}},
+    {"notes": {"Ab": 1, "Bb": 1, "Eb": 1}, "output": {"root": 8, "type": "sus2"}},
+    {"notes": {"Ab": 1, "B": 1, "D": 1}, "output": {"root": 8, "type": "dim"}},
+
+    {"notes": {"A": 1, "Db": 1, "E": 1}, "output": {"root": 9, "type": "maj"}},
+    {"notes": {"A": 1, "C": 1, "E": 1}, "output": {"root": 9, "type": "min"}},
+    {"notes": {"A": 1, "D": 1, "E": 1}, "output": {"root": 9, "type": "sus4"}},
+    {"notes": {"A": 1, "B": 1, "E": 1}, "output": {"root": 9, "type": "sus2"}},
+    {"notes": {"A": 1, "C": 1, "Eb": 1}, "output": {"root": 9, "type": "dim"}},
+
+    {"notes": {"Bb": 1, "D": 1, "F": 1}, "output": {"root": 10, "type": "maj"}},
+    {"notes": {"Bb": 1, "Db": 1, "F": 1}, "output": {"root": 10, "type": "min"}},
+    {"notes": {"Bb": 1, "Eb": 1, "F": 1}, "output": {"root": 10, "type": "sus4"}},
+    {"notes": {"Bb": 1, "C": 1, "F": 1}, "output": {"root": 10, "type": "sus2"}},
+    {"notes": {"Bb": 1, "Db": 1, "E": 1}, "output": {"root": 10, "type": "dim"}},
+
+    {"notes": {"B": 1, "Eb": 1, "Gb": 1}, "output": {"root": 11, "type": "maj"}},
+    {"notes": {"B": 1, "D": 1, "Gb": 1}, "output": {"root": 11, "type": "min"}},
+    {"notes": {"B": 1, "E": 1, "Gb": 1}, "output": {"root": 11, "type": "sus4"}},
+    {"notes": {"B": 1, "Db": 1, "Gb": 1}, "output": {"root": 11, "type": "sus2"}},
+    {"notes": {"B": 1, "D": 1, "F": 1}, "output": {"root": 11, "type": "dim"}}
   ]
 }
