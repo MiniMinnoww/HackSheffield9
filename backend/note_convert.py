@@ -148,11 +148,10 @@ def on_data_received(payload):
     chord_map = create_full_chord_dict(payload)
 
     # Print the chord dictionary for testing.
-    print_chord_dict(chord_map)
 
     # Example of further processing (depends on external logic not included in this code).
     chords = complete_chords(NOTES, INTERVAL_TEMPLATES)  # External
-    data_to_return = notes_in_section(chord_map, chords, payload)  # External
+    data_to_return = notes_in_section(chord_map, chords)  # External
 
     return data_to_return
 

@@ -43,10 +43,10 @@ INTERVAL_TEMPLATES = {
 }
 
 # Weightings for each interval, indicating their importance in chord identification.
-with open("backend/data/chord_weights.json", "r") as file:
+with open("data/chord_weights.json", "r") as file:
     CHORD_WEIGHTS = json.load(file)
 
-with open("backend/data/interval_weights.json", "r") as file:
+with open("data/interval_weights.json", "r") as file:
     INTERVAL_WEIGHTING = json.load(file)
 
 def sort_dict_by_value_desc(dictionary: dict):
@@ -62,3 +62,14 @@ example_payload = {
 }
 example_chord_profile = "10000000100000001000000010000000"  # Example chord profile
 example_note_profile = "11110011000000001111000011111111"  # Example note profile
+
+class Color:
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    ORANGE = '\033[93m'
+    RED = '\033[91m'
+    END = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'

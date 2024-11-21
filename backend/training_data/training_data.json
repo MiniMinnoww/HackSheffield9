@@ -1,0 +1,12 @@
+{
+  "training_data": [
+    {
+      "notes":  {"C": 3, "A": 2, "E": 4},
+      "output": {"root": 9, "type":  "min"}
+    },
+    {
+      "notes":  {"C": 2, "E": 5, "G": 1},
+      "output": {"root": 0, "type":  "maj"}
+    }
+  ]
+}

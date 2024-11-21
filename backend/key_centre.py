@@ -9,6 +9,16 @@ def get_all_notes(payload):
             notes[midi_note] = note_string.count('1')
     return notes
 
+def get_all_notes_in_sections(notes_in_section):
+    notes = {}
+    for section, section_notes in notes_in_section.items():
+        for note_string, appearances in section_notes.items():
+            if note_string != "start_index":
+                midi_note = NOTES.index(note_string)
+                if midi_note not in notes: notes[midi_note] = appearances
+                else: notes[midi_note] += appearances
+        return notes
+
 def get_key_centre(melody_notes):
     possibilities = {}
     total = 0
@@ -24,13 +34,10 @@ def get_key_centre(melody_notes):
                     possibilities[i] += melody_notes[note]
                     total += melody_notes[note]
     sorted_possibilities = dict(sorted(possibilities.items(), key=lambda item: item[1], reverse=True))
-    print(sorted_possibilities)
     return list(sorted_possibilities.keys())[0], f"{(sorted_possibilities[list(sorted_possibilities.keys())[0]] / total * 100)}%"
 
-def get_weights_for_chords_in_key(payload):
-    section_key = get_key_centre(get_all_notes(payload))[0]
-
-
+def get_weights_for_chords_in_key(notes_in_sections):
+    section_key = get_key_centre(get_all_notes_in_sections(notes_in_sections))[0]
 
     # Firstly, convert the number in the "chords" dict into the relative numbers for the current key
     new_chords = {}

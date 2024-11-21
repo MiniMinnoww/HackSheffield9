@@ -90,13 +90,12 @@ def check_notes_in_section(notes_list, chord_dict):
         possible_chords = check_all_chords(note, possible_chords, chord_dict)
     return possible_chords
 
-def notes_in_section(notes_dict, chord_dict, payload):
+def notes_in_section(notes_dict, chord_dict):
     """
     Processes a section of notes and determines the most likely chord for each section.
 
     :param notes_dict: Dictionary of note occurrences in each section.
     :param chord_dict: Dictionary of all chords.
-    :param payload: The payload sent from the client.
     :return: List of dictionaries representing detected chords, their type, root, and length.
     """
     data_to_return = []
@@ -124,7 +123,7 @@ def notes_in_section(notes_dict, chord_dict, payload):
         # Determine the most likely chord for the current section.
         possible_chords = check_notes_in_section(notes_list, chord_dict)
 
-        extra_weights = key_centre.get_weights_for_chords_in_key(payload)
+        extra_weights = key_centre.get_weights_for_chords_in_key(notes_dict)
         for weight in extra_weights:
             for chord in possible_chords:
                 if weight == chord:
@@ -134,7 +133,7 @@ def notes_in_section(notes_dict, chord_dict, payload):
         if len(notes_list) < 1:
             continue
         else:
-            print(sort_dict_by_value_desc(possible_chords))
+
             top_chord = most_likely_chord(possible_chords)
 
         # Determine chord type (major or minor).
