@@ -66,10 +66,10 @@ load_template = (index) => {
     returned_chords = []
     let template = templates[index]
 
-    load_data(template)
+    load_template_woo(template)
 }
 
-load_data = (template) => {
+load_template_woo = (template) => {
     bpmInput.value = template["speed"]
 
     for (let idx in template["chords"]) {
