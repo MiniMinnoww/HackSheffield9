@@ -1,17 +1,7 @@
 # Importing necessary modules and functions from an external `logic` module.
 from logic import *
+from constants import *
 
-# Example data to simulate a payload, chord profile, and note profile.
-example_payload = {
-    "chords": "10000000100000001000000010000000",  # Chord profile string
-    "0": "11110011000000001111000011111111",     # Note profile for MIDI note 0
-    "15": "00110011000000001111000011111111",    # Note profile for MIDI note 15
-}
-example_chord_profile = "10000000100000001000000010000000"  # Example chord profile
-example_note_profile = "11110011000000001111000011111111"  # Example note profile
-
-# List of note names, mapping MIDI numbers to musical notes.
-notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
 # Function to process the payload and create a dictionary of chord changes and note information.
 def create_full_chord_dict(payload):
@@ -161,8 +151,8 @@ def on_data_received(payload):
     print_chord_dict(chord_map)
 
     # Example of further processing (depends on external logic not included in this code).
-    maj_chords, min_chords = complete_chords(notes, maj_template, min_template)  # External
-    data_to_return = notes_in_section(chord_map, maj_chords, min_chords, payload)  # External
+    chords = complete_chords(notes, basic_intervals_template)  # External
+    data_to_return = notes_in_section(chord_map, chords, payload)  # External
 
     return data_to_return
 

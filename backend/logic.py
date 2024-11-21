@@ -1,40 +1,7 @@
 import key_centre
+from constants import *
 
-# List of note names representing the chromatic scale.
-notes = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
-# Dictionary representing major intervals relative to the root note.
-maj_template = {
-    "I": 0,    # Root
-    "II": 2,   # Major second
-    "III": 4,  # Major third
-    "IV": 5,   # Perfect fourth
-    "V": 7,    # Perfect fifth
-    "VI": 9,   # Major sixth
-    "VII": 11, # Major seventh
-}
-
-# Dictionary representing minor intervals relative to the root note.
-min_template = {
-    "I": 0,    # Root
-    "II": 2,   # Major second
-    "III": 3,  # Minor third
-    "IV": 5,   # Perfect fourth
-    "V": 7,    # Perfect fifth
-    "VI": 8,   # Minor sixth
-    "VII": 10, # Minor seventh
-}
-
-# Weightings for each interval, indicating their importance in chord identification.
-weightings = {
-    "I": 6,  # Root is the most important
-    "II": 3, # Major/Minor second
-    "III": 3, # Major/Minor third
-    "IV": 4, # Perfect fourth
-    "V": 5,  # Perfect fifth
-    "VI": 2, # Sixth
-    "VII": 1, # Seventh
-}
 
 def get_related_note(note, semitones):
     """
@@ -46,33 +13,31 @@ def get_related_note(note, semitones):
     """
     return notes[(notes.index(note) + semitones) % 12]
 
-def complete_chords(notes_list, maj_intervals, min_intervals):
+def complete_chords(notes_list, intervals):
     """
     Generates dictionaries of all possible major and minor chords for each note.
+    In format: {'C': {'C': 'I', 'D', 'II'}, 'D' ...}
 
     :param notes_list: List of note names (e.g., ["C", "Db", ...]).
-    :param maj_intervals: Dictionary of major intervals.
-    :param min_intervals: Dictionary of minor intervals.
+    :param intervals: Dictionary of all intervals.
     :return: Two dictionaries (major and minor chords) with notes mapped to intervals.
     """
-    maj_dict = dict()
-    min_dict = dict()
+    chord_dict = {}
+    for chord_type in intervals:
+        chord_dict[chord_type] = dict()
 
-    for root in notes_list:
-        maj_dict[root] = dict()
-        min_dict[root] = dict()
+        # For every note
+        for root in notes_list:
+            # Make a dict entry for this note in both major and minor dict
+            chord_dict[chord_type][root] = dict()
 
-        # Calculate major chords for the root note.
-        for note in maj_intervals:
-            next_note = get_related_note(root, maj_intervals[note])
-            maj_dict[root][next_note] = note
+            # Calculate chords for the root note
 
-        # Calculate minor chords for the root note.
-        for note in min_intervals:
-            next_note = get_related_note(root, min_intervals[note])
-            min_dict[root][next_note] = note
+            for note in intervals[chord_type]: # Go through each interval in a scale
+                next_note = get_related_note(root, intervals[chord_type][note]) # Find note X semitones from the root
+                chord_dict[chord_type][root][next_note] = note # Set the note X semitones from the root to the dict
 
-    return maj_dict, min_dict
+    return chord_dict
 
 def print_chords(chord_dict):
     """
@@ -89,58 +54,48 @@ def print_chords(chord_dict):
         output += "\n\n"
     return output
 
-def check_all_chords(note, possible_chords, maj_dict, min_dict):
+def check_all_chords(note, possible_chords, chord_dict):
     """
     Checks which chords (major and minor) a given note belongs to and updates their weightings.
 
     :param note: The note to check.
     :param possible_chords: Dictionary tracking potential chords and their weightings.
-    :param maj_dict: Dictionary of major chords.
-    :param min_dict: Dictionary of minor chords.
+    :param chord_dict: Dictionary of all chords.
     :return: Updated possible_chords dictionary.
     """
-    # Check major chords.
-    for chord in maj_dict:
-        if note in maj_dict[chord]:
-            weighting = weightings[maj_dict[chord][note]]
-            if chord in possible_chords:
-                possible_chords[chord] += weighting
-            else:
-                possible_chords[chord] = weighting
 
-    # Check minor chords.
-    for chord in min_dict:
-        if note in min_dict[chord]:
-            weighting = weightings[min_dict[chord][note]]
-            chord += "m"  # Append "m" to indicate minor.
-            if chord in possible_chords:
-                possible_chords[chord] += weighting
-            else:
-                possible_chords[chord] = weighting
+    for chord_type in chord_dict:
+        for chord in chord_dict[chord_type]:
+            chord_id = chord + " " + chord_type
+
+            if note in chord_dict[chord_type][chord]:
+                weighting = weightings[chord_dict[chord_type][chord][note]]
+                if chord_id in possible_chords:
+                    possible_chords[chord_id] += weighting
+                else:
+                    possible_chords[chord_id] = weighting
 
     return possible_chords
 
-def check_notes_in_section(notes_list, maj_dict, min_dict):
+def check_notes_in_section(notes_list, chord_dict):
     """
     Identifies possible chords for a section based on the notes present.
 
     :param notes_list: List of notes in the section.
-    :param maj_dict: Dictionary of major chords.
-    :param min_dict: Dictionary of minor chords.
+    :param chord_dict: Dictionary of all chords.
     :return: Dictionary of possible chords and their weightings.
     """
     possible_chords = dict()
     for note in notes_list:
-        possible_chords = check_all_chords(note, possible_chords, maj_dict, min_dict)
+        possible_chords = check_all_chords(note, possible_chords, chord_dict)
     return possible_chords
 
-def notes_in_section(notes_dict, maj_dict, min_dict, payload):
+def notes_in_section(notes_dict, chord_dict, payload):
     """
     Processes a section of notes and determines the most likely chord for each section.
 
     :param notes_dict: Dictionary of note occurrences in each section.
-    :param maj_dict: Dictionary of major chords.
-    :param min_dict: Dictionary of minor chords.
+    :param chord_dict: Dictionary of all chords.
     :param payload: The payload sent from the client.
     :return: List of dictionaries representing detected chords, their type, root, and length.
     """
@@ -167,34 +122,25 @@ def notes_in_section(notes_dict, maj_dict, min_dict, payload):
                 notes_list.append(note)
 
         # Determine the most likely chord for the current section.
-        possible_chords = check_notes_in_section(notes_list, maj_dict, min_dict)
+        possible_chords = check_notes_in_section(notes_list, chord_dict)
 
         extra_weights = key_centre.get_weights_for_chords_in_key(payload)
         for weight in extra_weights:
             for chord in possible_chords:
                 if weight == chord:
-                    print("Found equal chord")
                     possible_chords[chord] += extra_weights[weight]
 
 
         if len(notes_list) < 1:
-            pass
+            continue
         else:
             top_chord = most_likely_chord(possible_chords)
 
         # Determine chord type (major or minor).
-        if "m" in top_chord:
-            top_chord = top_chord.replace("m", "")
-            chord_used = {
-                "root": int(notes.index(top_chord)),
-                "type": "min"
-            }
-            top_chord += "m"
-        else:
-            chord_used = {
-                "root": int(notes.index(top_chord)),
-                "type": "maj"
-            }
+        chord_used = {
+            "root": int(notes.index(top_chord.split(" ")[0])),
+            "type": top_chord.split(" ")[1]
+        }
 
         i += 1
 
@@ -213,16 +159,14 @@ def most_likely_chord(possible_chords):
     :param possible_chords: Dictionary of chords and their weightings.
     :return: The most likely chord.
     """
-    top_value = 0
-    top_chord = ""
-    for chord in possible_chords:
-        if possible_chords[chord] > top_value:
-            top_value = possible_chords[chord]
-            top_chord = chord
-    return top_chord
+
+    # Sort dictionary by value in descending order, and pick the top element
+    sorted_dict = dict(sorted(possible_chords.items(), key=lambda item: item[1], reverse=True))
+    return list(sorted_dict.keys())[0]
 
 # Generate major and minor chord dictionaries.
-maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
+# complete_chords(notes, basic_intervals_template)
+#maj_chords, min_chords = complete_chords(notes, maj_template, min_template)
 
 # Uncomment these lines to test chord dictionaries and section processing.
 # print(print_chords(maj_chords))
