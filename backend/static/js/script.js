@@ -1,8 +1,6 @@
-console.log("Started JS!");
+console.log("Welcome to Harmonizer! Why are you looking here >:0");
 
-// =============================
 // Constants and Variables
-// =============================
 const COLS = 32;
 const ROWS = 50;
 
@@ -21,7 +19,7 @@ const keyInput = document.getElementById("input_key");
 // =============================
 // Helper Functions
 // =============================
-let send_data = (payload) => {
+const send_data = (payload) => {
     fetch('/api/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -46,7 +44,7 @@ let send_data = (payload) => {
         .catch(error => console.error('Error:', error));
 };
 
-let generatePayload = () => {
+const generatePayload = () => {
     let payload = {};
     let note = 0;
 
@@ -68,7 +66,7 @@ let generatePayload = () => {
     return payload;
 };
 
-let reset = () => {
+const reset = () => {
     for (let row of midi_notes) {
         for (let cell of row) {
             cell.enabled = false;
@@ -88,14 +86,13 @@ let reset = () => {
     localStorage.setItem('saveData', JSON.stringify(generatePayload()));
 };
 
-let save = () => {
+const save = () => {
     localStorage.setItem('saveData', JSON.stringify(generatePayload()));
 };
 
-// =============================
+
 // Initialization Functions
-// =============================
-let createChordCells = () => {
+const createChordCells = () => {
     let chordRow = document.createElement("div");
     chordRow.classList.add("row");
     midi_roll.appendChild(chordRow);
@@ -112,7 +109,7 @@ let createChordCells = () => {
     }
 };
 
-let createPianoRoll = () => {
+const createPianoRoll = () => {
     pianoRoll.appendChild(document.createElement("br"));
     pianoRoll.appendChild(document.createElement("br"));
 
@@ -127,7 +124,7 @@ let createPianoRoll = () => {
     }
 };
 
-let createMidiRoll = () => {
+const createMidiRoll = () => {
     for (let i = ROWS - 1; i >= 0; i--) {
         let row = [];
 
@@ -147,9 +144,7 @@ let createMidiRoll = () => {
     }
 };
 
-// =============================
 // Event Listeners
-// =============================
 goButton.addEventListener("click", () => {
     let payload = generatePayload();
     send_data(payload);
@@ -159,6 +154,7 @@ resetButton.addEventListener("click", () => {
     reset();
 });
 
+// Displaying the selected key visually
 keyInput.onchange = (e) => {
     current_key = parseInt(keyInput.value);
     if (current_key === -1) {
@@ -178,13 +174,11 @@ keyInput.onchange = (e) => {
     }
 };
 
-// =============================
 // Main Execution
-// =============================
 createChordCells();
 createPianoRoll();
 createMidiRoll();
 
 setInterval(() => { save(); }, 1000);
 
-load_template_woo(JSON.parse(localStorage.getItem('saveData')));
+load_data(JSON.parse(localStorage.getItem('saveData')));
