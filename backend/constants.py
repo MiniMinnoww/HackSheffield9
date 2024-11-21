@@ -1,6 +1,6 @@
+import json
+
 NOTES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-
-
 INTERVAL_TEMPLATES = {
     "maj": {
         "I": 0,    # Root
@@ -27,19 +27,31 @@ INTERVAL_TEMPLATES = {
         "III": 3,   # Minor third
         "V": 6,     # Flattened fifth
         "VI": 9,   # Major 6th
-    }
+    },
+
+    "sus4": {
+            "I": 0,     # Root
+            "IV": 5,    # Perfect 4th
+            "V": 7,     # Perfect fifth
+    },
+
+    "sus2": {
+            "I": 0,     # Root
+            "II": 2,   # Perfect 4th
+            "V": 7,     # Perfect fifth
+    },
 }
 
 # Weightings for each interval, indicating their importance in chord identification.
-INTERVAL_WEIGHTING = {
-    "I": 6,  # Root is the most important
-    "II": 3, # Major/Minor second
-    "III": 3, # Major/Minor third
-    "IV": 4, # Perfect fourth
-    "V": 5,  # Perfect fifth
-    "VI": 2, # Sixth
-    "VII": 1, # Seventh
-}
+with open("backend/data/chord_weights.json", "r") as file:
+    CHORD_WEIGHTS = json.load(file)
+
+with open("backend/data/interval_weights.json", "r") as file:
+    INTERVAL_WEIGHTING = json.load(file)
+
+def sort_dict_by_value_desc(dictionary: dict):
+    sorted_dict = dict(sorted(dictionary.items(), key=lambda item: item[1], reverse=True))
+    return sorted_dict
 
 
 # Example data to simulate a payload, chord profile, and note profile.

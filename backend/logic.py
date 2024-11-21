@@ -134,6 +134,7 @@ def notes_in_section(notes_dict, chord_dict, payload):
         if len(notes_list) < 1:
             continue
         else:
+            print(sort_dict_by_value_desc(possible_chords))
             top_chord = most_likely_chord(possible_chords)
 
         # Determine chord type (major or minor).

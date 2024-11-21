@@ -30,23 +30,11 @@ def get_key_centre(melody_notes):
 def get_weights_for_chords_in_key(payload):
     section_key = get_key_centre(get_all_notes(payload))[0]
 
-    chords = {
-        "0 maj": 4,     # Tonic
-        "2 min": 3,    # minor 2nd
-        "4 min": 3,    # Minor 3rd
-        "5 maj": 4,     # Major 4th
-        "7 maj": 4,     # Major 5th
-        "9 min": 4,    # Minor 6th
-        "2 maj": 2,     # Major 2nd
-        "4 maj": 2,     # Major 3rd
-        "11 min": 2,   # Minor 7th
-        "5 min": 1,    # Minor 4th
-        "7 min": 1     # Minor 5th
-    }
+
 
     # Firstly, convert the number in the "chords" dict into the relative numbers for the current key
     new_chords = {}
-    for dict_key, item in chords.items():
+    for dict_key, item in CHORD_WEIGHTS.items():
         note = (int(dict_key[0]) + section_key) % 12
         new_chords[note_convert.NOTES[note] + dict_key[1:]] = item
 
