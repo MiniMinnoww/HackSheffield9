@@ -43,11 +43,20 @@ INTERVAL_TEMPLATES = {
 }
 
 # Weightings for each interval, indicating their importance in chord identification.
-with open("data/chord_weights.json", "r") as file:
-    CHORD_WEIGHTS = json.load(file)
+try:
+    with open("data/chord_weights.json", "r") as file:
+        CHORD_WEIGHTS = json.load(file)
+except FileNotFoundError:
+    with open("backend/data/chord_weights.json", "r") as file:
+        CHORD_WEIGHTS = json.load(file)
 
-with open("data/interval_weights.json", "r") as file:
-    INTERVAL_WEIGHTING = json.load(file)
+try:
+    with open("data/interval_weights.json", "r") as file:
+        INTERVAL_WEIGHTING = json.load(file)
+except FileNotFoundError:
+    with open("backend/data/interval_weights.json", "r") as file:
+        INTERVAL_WEIGHTING = json.load(file)
+
 
 def sort_dict_by_value_desc(dictionary: dict):
     sorted_dict = dict(sorted(dictionary.items(), key=lambda item: item[1], reverse=True))
