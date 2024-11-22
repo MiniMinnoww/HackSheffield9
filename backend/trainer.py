@@ -31,6 +31,8 @@ for data_point in training_data["training_data"]:
     if success:
         if PRINT_INDIVIDUALS: print(f"{Color.GREEN}Success{Color.END} - chord of {Color.BLUE}{NOTES[expected_output['root']] + " " + expected_output['type']}{Color.END} guessed correctly")
         right += 1
+
+
     else:
         wrong_data.append({"actual": returned_data, "expected": expected_output})
 

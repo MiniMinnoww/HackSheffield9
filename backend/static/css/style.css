@@ -12,30 +12,7 @@
     outline: 4px solid rgb(0,0,0);
 }
 
-.cell {
-    height: 25px;
-    width: 50px;
-    min-width: 100px;
-    flex: 1;
-    border: 1px solid rgb(149, 149, 149);
-    background-color: var(--background)
-}
 
-.cell-on {
-    background-color: var(--accent) !important;
-}
-
-.cell-off:hover {
-    background-color: var(--secondary) !important;
-}
-
-.chord-cell-on {
-    background-color: var(--primary);
-}
-
-.chord-cell-off:hover {
-    background-color: var(--lighter);
-}
 
 .row {
     display: flex;
@@ -46,8 +23,6 @@
 .row:hover{
     outline: 2px solid #000000;
 }
-
-
 
 .bar-line{
     border-left: 2px solid rgb(0,0,0);
@@ -69,28 +44,6 @@
     flex: 1;
 }
 
-.key {
-    background-color: white;
-    margin-right: 0;
-    margin-left: auto;
-}
-
-.key:hover {
-    background-color: #AAAAAA;
-}
-
-.black-key {
-    background-image: linear-gradient(to right, black 0%, black 50%, white 51%, white 100%);
-    margin-right: 0;
-    margin-left: auto;
-}
-
-.black-key:hover {
-    background-image: linear-gradient(to right, black 0%, black 50%, #AAAAAA 51%, #AAAAAA 100%);
-}
-
-
-
 #bpm {
     /*
     background-color: var(--lighter);
@@ -109,7 +62,7 @@ label{
     font-weight: bold;
 }
 
-input[type="number"]{
+input[type="number"] {
     background-color: var(--greyishBackground);
     border: 1.5px solid rgb(117, 117, 117);
 }

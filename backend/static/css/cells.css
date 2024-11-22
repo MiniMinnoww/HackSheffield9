@@ -1,0 +1,24 @@
+.cell {
+    height: 25px;
+    width: 50px;
+    min-width: 100px;
+    flex: 1;
+    border: 1px solid rgb(149, 149, 149);
+    background-color: var(--background)
+}
+
+.cell-on {
+    background-color: var(--accent) !important;
+}
+
+.cell-off:hover {
+    background-color: var(--secondary) !important;
+}
+
+.chord-cell-on {
+    background-color: var(--primary);
+}
+
+.chord-cell-off:hover {
+    background-color: var(--lighter);
+}
