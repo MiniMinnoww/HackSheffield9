@@ -30,22 +30,6 @@
             <label for="input_bpm"> Speed:</label>
             <input type="number" value="30" min="10" max="240" id="input_bpm">
             <br>
-            <label for="input_key">Visual Key </label>
-                <select name="key" id="input_key">
-                    <option value="-1">None</option>
-                    <option value="0">C major/A minor</option>
-                    <option value="1">Db major/Bb minor</option>
-                    <option value="2">D major/B minor</option>
-                    <option value="3">Eb major/C minor</option>
-                    <option value="4">E major/Db minor</option>
-                    <option value="5">F major/D minor</option>
-                    <option value="6">Gb major/Eb minor</option>
-                    <option value="7">G major/E minor</option>
-                    <option value="8">Ab major/F minor</option>
-                    <option value="9">A major/Gb minor</option>
-                    <option value="10">Bb major/G minor</option>
-                    <option value="11">B major/Ab minor</option>
-                </select>
         </section>
         <input type="button" value="Generate chords" id="goButton">
 
@@ -68,6 +52,36 @@
 
         </main>
     </div>
+
+    <aside>
+        <div>
+            <input type="button" name="play" id="play_button" value="Play">
+        </div>
+        <div id="input_key_div">
+            <label for="input_key">Visual Key </label>
+            <select name="key" id="input_key">
+                <option value="-1">None</option>
+                <option value="0">C major/A minor</option>
+                <option value="1">Db major/Bb minor</option>
+                <option value="2">D major/B minor</option>
+                <option value="3">Eb major/C minor</option>
+                <option value="4">E major/Db minor</option>
+                <option value="5">F major/D minor</option>
+                <option value="6">Gb major/Eb minor</option>
+                <option value="7">G major/E minor</option>
+                <option value="8">Ab major/F minor</option>
+                <option value="9">A major/Gb minor</option>
+                <option value="10">Bb major/G minor</option>
+                <option value="11">B major/Ab minor</option>
+            </select>
+        </div>
+        <div id="play_notes_on_click_div">
+            <label for="play_notes_on_click">Play notes on click</label>
+            <input type="checkbox" name="play_notes_on_click" id="play_notes_on_click">
+        </div>
+
+
+    </aside>
 
     <script src="{{ url_for('static', filename='js/templates.js') }}"></script>
     <script src="{{ url_for('static', filename='js/util.js') }}"></script>
