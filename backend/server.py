@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import note_convert
 from constants import Color
-
+import new_logic
 app = Flask(__name__)
 @app.route('/')
 def index():
@@ -13,7 +13,11 @@ def api_data():
     if request.method == 'POST':
         print(f"A client '{Color.BLUE}{request.remote_addr}{Color.END}' has sent a request.")
         data = request.json  # Parse JSON data from the templates
-        data_returned = note_convert.on_data_received(data)
+
+        if data.get("algorithm") == "legacy":
+            data_returned = note_convert.on_data_received(data)
+        else:
+            data_returned = new_logic.on_data_received(payload=data)
 
         return jsonify(data_returned)
     return jsonify({"data": "An error occurred"})
