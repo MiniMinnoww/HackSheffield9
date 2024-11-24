@@ -42,31 +42,11 @@
     flex: 1;
 }
 
-#bpm {
-    /*
-    background-color: var(--lighter);
-    border: 5px solid var(--lighter);
-     */
-    margin-left: 40%;
-    margin-right: 40%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-}
-
 
 label{
     margin-right: 4%;
     font-size: 0.87em;
     font-weight: bold;
-}
-
-input[type="number"] {
-    background-color: var(--greyishBackground);
-    border: 1.5px solid rgb(117, 117, 117);
-}
-
-input[type="number"]:hover{
-    box-shadow: 2px 2px 5px rgb(117, 117, 117);
 }
 
 #buttons{
@@ -196,6 +176,8 @@ aside div {
     flex-direction: row;
     padding: 10px;
     border-radius: 5px;
+    align-items: center;
+    justify-content: center;
 
     transition: 0.3s box-shadow ease-in-out;
 }
@@ -252,6 +234,18 @@ aside div {
 
 .loop_button_on {
     background-color: var(--primary) !important;
+}
+
+#input_bpm {
+    background-color: white;
+    border: 1px solid rgb(117, 117, 117);
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+#input_key {
+    padding: 10px 5px;
+    border-radius: 5px;
 }
 
 aside br {

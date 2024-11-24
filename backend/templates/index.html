@@ -26,11 +26,6 @@
             </section>
         </section>
 
-        <section id="bpm">
-            <label for="input_bpm"> Speed:</label>
-            <input type="number" value="30" min="10" max="240" id="input_bpm">
-            <br>
-        </section>
         <input type="button" value="Generate chords" id="goButton">
 
         <div id="buttons">
@@ -60,8 +55,13 @@
         <div>
             <input type="button" name="loop" id="loop_button" value="Loop">
         </div>
+        <div id="bpm" class="checkbox_div">
+            <label for="input_bpm">Speed </label>
+            <input type="number" value="30" min="10" max="240" id="input_bpm">
+            <br>
+        </div>
         <div class="checkbox_div">
-            <label for="input_key">Visual Key </label>
+            <label for="input_key">Key </label>
             <select name="key" id="input_key">
                 <option value="-1">None</option>
                 <option value="0">C major/A minor</option>
