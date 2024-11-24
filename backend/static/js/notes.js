@@ -4,6 +4,7 @@ let bpmInput = document.getElementById("input_bpm");
 let interval;
 let intervalId;
 let playing = false;
+let loop = false;
 
 // Updates where the cursor is on the screen
 const updateCursorUI = (num) => {
@@ -60,6 +61,9 @@ const playTone = (frequency, duration, amp = 0.2) => {
 
 // Play the music currently inputted (or stop if already playing)
 const play = () => {
+    playButton.element.value = playing ? "Play" : "Stop" // Toggle back the play button
+    playButton.setState(!playing)
+
     if (playing) {
         clearInterval(intervalId);
         updateCursorUI(-1);
@@ -68,6 +72,7 @@ const play = () => {
     }
 
     playing = true;
+
     recalculateInterval();
 
     let columnIndex = 0;
@@ -87,7 +92,7 @@ const play = () => {
         updateCursorUI(columnIndex);
     };
 
-    const chordList = returned_chords.map(obj => ({ ...obj }));
+    let chordList = returned_chords.map(obj => ({...obj}));
     let first = true;
 
     // Interval to play notes at the correct BPM
@@ -112,9 +117,18 @@ const play = () => {
 
         // Stop when you've looped through all columns
         if (columnIndex === 0) {
-            clearInterval(intervalId);
-            updateCursorUI(-1);
-            playing = false;
+            if (loop) {
+                chordList = returned_chords.map(obj => ({...obj}));
+                first = true;
+            }
+            else {
+                updateCursorUI(-1);
+                playing = false;
+                playButton.element.value = "Play"
+                playButton.setState(false)
+                clearInterval(intervalId);
+            }
+
         }
     }, interval);
 };

@@ -3,7 +3,7 @@
     width: 50px;
     min-width: 100px;
     flex: 1;
-    border: 1px solid rgb(149, 149, 149);
+    border: 1px solid rgb(200, 200, 200);
     background-color: var(--background);
 
     transition: 0.3s box-shadow ease-in-out;

@@ -57,7 +57,10 @@
         <div>
             <input type="button" name="play" id="play_button" value="Play">
         </div>
-        <div id="input_key_div">
+        <div>
+            <input type="button" name="loop" id="loop_button" value="Loop">
+        </div>
+        <div class="checkbox_div">
             <label for="input_key">Visual Key </label>
             <select name="key" id="input_key">
                 <option value="-1">None</option>
@@ -75,14 +78,19 @@
                 <option value="11">B major/Ab minor</option>
             </select>
         </div>
-        <div id="play_notes_on_click_div">
-            <label for="play_notes_on_click">Play notes on click</label>
+        <div class="checkbox_div">
+            <label for="play_notes_on_click">Play notes</label>
             <input type="checkbox" name="play_notes_on_click" id="play_notes_on_click">
+        </div>
+        <div class="checkbox_div">
+            <label for="debug_mode">Debug</label>
+            <input type="checkbox" name="debug_mode" id="debug_mode">
         </div>
 
 
     </aside>
 
+    <script src="{{ url_for('static', filename='js/buttons.js') }}"></script>
     <script src="{{ url_for('static', filename='js/templates.js') }}"></script>
     <script src="{{ url_for('static', filename='js/util.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cells.js') }}"></script>

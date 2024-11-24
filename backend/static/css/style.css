@@ -191,7 +191,7 @@ aside div {
     margin: auto 10px;
 }
 
-#input_key_div {
+.checkbox_div {
     display: flex;
     flex-direction: row;
     padding: 10px;
@@ -200,11 +200,9 @@ aside div {
     transition: 0.3s box-shadow ease-in-out;
 }
 
-#input_key_div:hover {
+.checkbox_div:hover {
     box-shadow: 0 0 10px rgb(117, 117, 117);
 }
-
-
 
 #play_button {
     background-color: var(--greyishBackground);
@@ -220,6 +218,30 @@ aside div {
 #play_button:hover {
     background-color: var(--secondary);
     box-shadow: 0 0 10px rgb(117, 117, 117);
+}
+
+.play_button_on {
+    background-color: var(--secondary) !important;
+}
+
+#loop_button {
+    background-color: var(--greyishBackground);
+    border: none;
+
+    transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
+
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+}
+
+#loop_button:hover {
+    background-color: var(--primary);
+    box-shadow: 0 0 10px rgb(117, 117, 117);
+}
+
+.loop_button_on {
+    background-color: var(--primary) !important;
 }
 
 aside br {
