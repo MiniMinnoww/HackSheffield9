@@ -2,7 +2,10 @@
 // VARIABLES
 // ==================================================
 
+let debug = false
+
 let returned_chords = [];
+let debug_data = [];
 let current_key = -1;
 
 // MIDI and chord data
@@ -31,16 +34,16 @@ const send_data = (payload) => {
     })
     .then(response => response.json())
     .then(data => {
-        returned_chords = data;
-        console.log("loading data");
+        returned_chords = data["data"];
+        debug_data = data["debug"]
+        console.log(debug_data)
         let i = 0;
         for (let cell of chords) {
             if (cell.enabled) {
-                console.log(cell);
                 let root = midi_note_to_name(returned_chords[i].root);
                 let type = returned_chords[i].type;
-                console.log(root);
                 cell.setChordText(root, type);
+                cell.setDebugData(debug_data["chord_possibilities"][i]);
                 i++;
             }
         }
@@ -112,6 +115,7 @@ const generatePayload = () => {
     let note = 0;
 
     payload["speed"] = bpmInput.value;
+    payload["debug"] = debug;
 
     payload["chords"] = "";
     for (let chord of chords) {

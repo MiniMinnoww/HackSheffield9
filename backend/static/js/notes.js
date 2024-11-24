@@ -5,6 +5,7 @@ let interval;
 let intervalId;
 let playing = false;
 let loop = false;
+let play_notes_on_click = true
 
 // Updates where the cursor is on the screen
 const updateCursorUI = (num) => {

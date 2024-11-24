@@ -51,7 +51,10 @@ def on_data_received(payload):
 
     notes = get_all_notes_in_sections(payload=payload, offset=key)
 
-    return get_chords_from_notes_in_sections(notes, payload_length, key)
+    data, debug = get_chords_from_notes_in_sections(notes, payload_length, key)
+    return_data = {"data": data, "debug": debug}
+
+    return return_data
 
 def get_all_chords_and_chord_weight_template():
     all_chords = {}
@@ -66,11 +69,14 @@ def get_all_chords_and_chord_weight_template():
 
 def get_chords_from_notes_in_sections(notes, payload_length, key=-1):
 
+    debug_data = {
+        "chord_possibilities": []
+    }
+
     all_chords, chord_weights_template = get_all_chords_and_chord_weight_template()
 
     return_data = []
     for section_index, note_dict in notes.items():
-
         section_data = {"root": 0, "type": "maj", "length": 0}
         weights = chord_weights_template.copy()
 
@@ -84,12 +90,13 @@ def get_chords_from_notes_in_sections(notes, payload_length, key=-1):
             if chord in weights: weights[chord] += extra_weight
 
         poss_chords = constants.sort_dict_by_value_desc(weights)
-        printed_chords = {}
-        for chord_name, weight in poss_chords.items():
-            new_chord_name = constants.NOTES[(int((split := chord_name.split(" "))[0]) + key) % 12] + " " + split[1]
-            printed_chords[new_chord_name] = weight
 
-        print(printed_chords)
+        debug_poss_chords = {}
+        for chord, value in poss_chords.items():
+            chord = f"{int(chord.split(" ")[0]) + key} {chord.split(" ")[1]}"
+            debug_poss_chords[chord] = value
+        debug_data["chord_possibilities"].append(debug_poss_chords)
+
         chord = list(poss_chords.keys())[0]
         section_data["root"] = int(chord.split(" ")[0]) + key
         section_data["type"] = chord.split(" ")[1]
@@ -101,4 +108,4 @@ def get_chords_from_notes_in_sections(notes, payload_length, key=-1):
 
         return_data.append(section_data)
 
-    return return_data
+    return return_data, debug_data

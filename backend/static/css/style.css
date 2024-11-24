@@ -204,6 +204,16 @@ aside div {
     box-shadow: 0 0 10px rgb(117, 117, 117);
 }
 
+.debug_display {
+    position: absolute;
+    display: none;
+    background-color: var(--greyishBackground);
+    color: #000000;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(117, 117, 117);
+}
+
 #play_button {
     background-color: var(--greyishBackground);
     border: none;

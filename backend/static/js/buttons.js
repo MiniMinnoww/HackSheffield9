@@ -57,3 +57,13 @@ playButton = new ToggleButton(document.getElementById("play_button"), () => {
 loopButton = new ToggleButton(document.getElementById("loop_button"), () => {
     loop = loopButton.state
 }, false, "loop_button_on", "")
+
+playNotes = new ToggleButton(document.getElementById("play_notes_on_click"), () => {
+    play_notes_on_click = playNotes.element.checked
+    playNotes.setState(play_notes_on_click)
+}, true)
+
+debugButton = new ToggleButton(document.getElementById("debug_mode"), () => {
+    debug = debugButton.element.checked
+    debugButton.setState(debug)
+}, false)
