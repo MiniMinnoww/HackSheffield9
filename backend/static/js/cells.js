@@ -85,6 +85,15 @@ class ChordCell extends Cell {
         })
     }
 
+    setupWidth() {
+        super.setupWidth()
+        let width = (((screen.width - 200) / COLS))
+        this.element.style.minWidth = width + "px"
+        this.element.style.maxWidth = width + "px"
+        this.element.style.minHeight = width + "px"
+        this.element.style.maxHeight = width + "px"
+    }
+
     generateDebugDisplay() {
         this.debugDisplay = document.createElement("div")
         this.element.appendChild(this.debugDisplay)
@@ -129,7 +138,7 @@ class ChordCell extends Cell {
             chord_data[0] = midi_note_to_name(chord_data[0])
             chord_data[1] = type_to_display_conversion[chord_data[1]]
 
-            displayedText += `<b>${chord_data[0]}${chord_data[1]}</b>: ${Math.round((value / total) * 100)}%<br>`
+            displayedText += `<b>${chord_data[0]}${chord_data[1]}</b>: ${+((value / total) * 100).toFixed(2)}%<br>`
             entries++
             if (entries >= maxEntries) break
         }

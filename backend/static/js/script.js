@@ -71,6 +71,7 @@ const createChordCells = () => {
 const createPianoRollCells = () => {
     pianoRoll.appendChild(document.createElement("br"));
     pianoRoll.appendChild(document.createElement("br"));
+    pianoRoll.appendChild(document.createElement("br"));
     for (let p = ROWS - 1; p >= 0; p--) {
         let cell = document.createElement("div");
         pianoRoll.appendChild(cell);
