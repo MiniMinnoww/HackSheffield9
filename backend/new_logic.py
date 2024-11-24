@@ -162,6 +162,7 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) 
         # Sort chords by weight in descending order
         poss_chords = constants.sort_dict_by_value_desc(weights)
 
+        # Add the chord weights to a debug dict
         debug_poss_chords = {}
         for chord, value in poss_chords.items():
             note, chord_type = parse_chord(chord)

@@ -148,6 +148,7 @@ const reset = () => {
     returned_chords = [];
     for (let chordIndex in chords) {
         chords[chordIndex].enabled = chordIndex % 8 === 0;
+        chords[chordIndex].element.innerHTML = ""
         chords[chordIndex].updateUI();
     }
 
