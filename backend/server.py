@@ -15,6 +15,7 @@ def api_data():
         data = request.json  # Parse JSON data from the templates
 
         if data.get("algorithm") == "legacy":
+            print("\nlegacy\n")
             data_returned = {"data": note_convert.on_data_received(data), "debug": "None"}
         else:
             data_returned = new_logic.on_data_received(payload=data)

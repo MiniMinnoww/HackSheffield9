@@ -36,14 +36,14 @@ const send_data = (payload) => {
     .then(data => {
         returned_chords = data["data"];
         debug_data = data["debug"]
-        console.log(debug_data)
+
         let i = 0;
         for (let cell of chords) {
             if (cell.enabled) {
                 let root = midi_note_to_name(returned_chords[i].root);
                 let type = returned_chords[i].type;
                 cell.setChordText(root, type);
-                cell.setDebugData(debug_data["chord_possibilities"][i]);
+                if (debug) cell.setDebugData(debug_data["chord_possibilities"][i]);
                 i++;
             }
         }
@@ -130,6 +130,8 @@ const generatePayload = () => {
         }
         note++;
     }
+
+    payload["algorithm"] = document.getElementById("input_algorithm").value
 
     return payload;
 }

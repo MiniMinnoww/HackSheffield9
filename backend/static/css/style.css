@@ -243,7 +243,7 @@ aside div {
     border-radius: 5px;
 }
 
-#input_key {
+#input_key,#input_algorithm {
     padding: 10px 5px;
     border-radius: 5px;
 }

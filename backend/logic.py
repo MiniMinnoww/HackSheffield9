@@ -123,11 +123,13 @@ def notes_in_section(notes_dict, chord_dict):
         # Determine the most likely chord for the current section.
         possible_chords = check_notes_in_section(notes_list, chord_dict)
 
-        extra_weights = key_centre.get_weights_for_chords_in_key(notes_dict)
-        for weight in extra_weights:
-            for chord in possible_chords:
-                if weight == chord:
-                    possible_chords[chord] += extra_weights[weight]
+        # I removed this from legacy chords because it wasn't present at the hackathon
+
+        # extra_weights = key_centre.get_weights_for_chords_in_key(notes_dict)
+        # for weight in extra_weights:
+        #     for chord in possible_chords:
+        #         if weight == chord:
+        #             possible_chords[chord] += extra_weights[weight]
 
 
         if len(notes_list) < 1:

@@ -140,25 +140,25 @@ const getChordNotes = (root, chordType) => {
 
     switch (chordType) {
         case "maj":
-            chord = [root, root + 4, root + 7];
+            chord = [root - 24, root, root + 4, root + 7];
             break;
         case "sus2":
-            chord = [root, root + 2, root + 7];
+            chord = [root - 24, root, root + 2, root + 7];
             break;
         case "sus4":
-            chord = [root, root + 5, root + 7];
+            chord = [root - 24, root, root + 5, root + 7];
             break;
         case "min":
-            chord = [root, root + 3, root + 7];
+            chord = [root - 24, root, root + 3, root + 7];
             break;
         case "5":
-            chord = [root, root + 7];
+            chord = [root - 24, root, root + 7];
             break;
         case "7":
-            chord = [root, root + 4, root + 7, root + 10];
+            chord = [root - 24, root, root + 4, root + 7, root + 10];
             break;
         case "dim":
-            chord = [root, root + 3, root + 6, root + 10];
+            chord = [root - 24, root, root + 3, root + 6, root + 10];
             break;
         default:
             chord = [root];
