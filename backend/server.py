@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request, jsonify
 import note_convert
 from constants import Color
@@ -25,4 +27,7 @@ def api_data():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if "IS_SERVER" in os.environ:
+        app.run(debug=True, host='0.0.0.0')
+    else:
+        app.run(debug=True)
