@@ -45,7 +45,7 @@ class Cell {
         }
     }
 
-    onMouseOver(e) {
+    onMouseOver(_) {
         if (mouseDown && this.canBeToggled) this.toggle()
 
         this.canBeToggled = false
@@ -70,8 +70,6 @@ class ChordCell extends Cell {
         this.element.classList.remove('cell-off')
         this.element.classList.add('chord-cell-off')
 
-        this.debugData = {}
-
         this.generateDebugDisplay()
 
         this.element.addEventListener("mouseover", (e) => {
@@ -80,7 +78,7 @@ class ChordCell extends Cell {
             if (debug) this.setShowingDebugData(true)
         })
 
-        this.element.addEventListener("mouseleave", (e) => {
+        this.element.addEventListener("mouseleave", (_) => {
             this.setShowingDebugData(false)
         })
     }
@@ -144,7 +142,6 @@ class ChordCell extends Cell {
         }
 
         this.debugDisplay.innerHTML = displayedText
-        this.debugData = data
     }
 
     toggle_on() {
@@ -164,6 +161,8 @@ class PianoCell {
         this.enabled = false
         this.element = div
         this.forceNote = false
+
+        this.black = black
 
         if (black) this.element.classList.add('black-key')
         else this.element.classList.add('key')
@@ -198,21 +197,34 @@ class PianoCell {
         this.element.addEventListener("mousedown", () => {
             let freq = midi_note_to_freq(this.row)
             playTone(freq, 500)
+            this.element.classList.add("key-force-hover-click")
+            if (this.black) this.element.classList.add("black-key-force-hover-click")
         })
 
         this.element.addEventListener("mouseover", () => {
             if (mouseDown) {
                 let freq = midi_note_to_freq(this.row)
                 playTone(freq, 500)
+                this.element.classList.add("key-force-hover-click")
+                if (this.black) this.element.classList.add("black-key-force-hover-click")
             }
         })
 
+
         this.element.addEventListener("mouseenter", () => {
+            this.element.style.userSelect = "none"
             this.element.innerHTML = midi_note_to_name(this.row) + "_"
         })
 
         this.element.addEventListener("mouseleave", () => {
             this.element.innerHTML = ""
+            this.element.classList.remove("key-force-hover-click")
+            if (this.black) this.element.classList.remove("black-key-force-hover-click")
+        })
+
+        this.element.addEventListener("mouseup", () => {
+            this.element.classList.remove("key-force-hover-click")
+            if (this.black) this.element.classList.remove("black-key-force-hover-click")
         })
     }
 }
