@@ -1,3 +1,5 @@
+const SIZE_MULTIPLIER = 1
+
 class Cell {
     constructor(row, col, div) {
         this.row = row
@@ -15,7 +17,7 @@ class Cell {
     }
 
     setupWidth() {
-        let width = (((screen.width - 200) / COLS))
+        let width = (((screen.width - 200) / COLS)) * SIZE_MULTIPLIER
         this.element.style.minWidth = width + "px"
         this.element.style.maxWidth = width + "px"
         this.element.style.minHeight = (width / 2) + "px"
@@ -85,7 +87,7 @@ class ChordCell extends Cell {
 
     setupWidth() {
         super.setupWidth()
-        let width = (((screen.width - 200) / COLS))
+        let width = (((screen.width - 200) / COLS)) * SIZE_MULTIPLIER
         this.element.style.minWidth = width + "px"
         this.element.style.maxWidth = width + "px"
         this.element.style.minHeight = width + "px"
@@ -185,7 +187,7 @@ class PianoCell {
     }
 
     setupWidth() {
-        let width = ((screen.width - 200) / COLS)
+        let width = ((screen.width - 200) / COLS) * SIZE_MULTIPLIER
         this.element.style.minWidth = width + 50 + "px"
         this.element.style.maxWidth = width + 50 + "px"
         this.element.style.minHeight = (width / 2) + "px"
