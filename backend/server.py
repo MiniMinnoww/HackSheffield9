@@ -28,6 +28,7 @@ def api_data():
 
 if __name__ == '__main__':
     if "IS_SERVER" in os.environ:
-        app.run(debug=True, host='0.0.0.0')
+        from waitress import serve
+        serve(app, host="0.0.0.0", port=8080)
     else:
         app.run(debug=True)
