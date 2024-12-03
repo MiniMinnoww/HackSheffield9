@@ -197,6 +197,7 @@ aside div {
     display: flex;
     flex-direction: row;
     padding: 10px;
+    height: 40px;
     border-radius: 5px;
     align-items: center;
     justify-content: center;

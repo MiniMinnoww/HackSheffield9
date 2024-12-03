@@ -132,7 +132,7 @@ const generatePayload = () => {
         note++;
     }
 
-    payload["algorithm"] = document.getElementById("input_algorithm").value
+    payload["algorithm"] = algorithmInput.value
 
     return payload;
 }
