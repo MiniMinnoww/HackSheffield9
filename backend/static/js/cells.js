@@ -92,16 +92,33 @@ class ChordCell extends Cell {
         this.element.classList.remove('cell-off')
         this.element.classList.add('chord-cell-off')
 
+        this.root = 0
+        this.type = "maj"
+
         this.generateDebugDisplay()
 
         this.element.addEventListener("mouseover", (e) => {
             this.debugDisplay.style.top = e.positionY + "px"
             this.debugDisplay.style.left = e.positionX + "px"
             if (debug) this.setShowingDebugData(true)
+
+            if (this.element.innerHTML !== "") {
+                let notes = getChordNotes(this.root, this.type)
+                for (let note of notes) {
+                    for (let note of notes) if (pianoNotes[ROWS - note - 1]) pianoNotes[ROWS - note - 1].showChordClick()
+                }
+            }
+
+
         })
 
         this.element.addEventListener("mouseleave", (_) => {
             this.setShowingDebugData(false)
+
+            if (this.element.innerHTML !== "") {
+                let notes = getChordNotes(this.root, this.type)
+                for (let note of notes) if (pianoNotes[ROWS - note - 1]) pianoNotes[ROWS - note - 1].showChordClick(false)
+            }
         })
     }
 
@@ -133,7 +150,10 @@ class ChordCell extends Cell {
         if (!this.enabled) this.element.innerHTML = ""
     }
 
-    setChordText(root, type) {
+    setChordText(root, type, rootNumber) {
+        this.root = rootNumber
+        this.type = type
+
         this.element.style.color = "#FFFFFF"
         this.element.innerHTML = "<b>" + root + "</b>" + type_to_display_conversion[type]
         this.generateDebugDisplay()
@@ -176,6 +196,11 @@ class ChordCell extends Cell {
     toggle() {
         this.enabled = !this.enabled
         this.updateUI()
+
+        if (!this.enabled) {
+            let notes = getChordNotes(this.root, this.type)
+            for (let note of notes) if (pianoNotes[ROWS - note - 1]) pianoNotes[ROWS - note - 1].showChordClick(false)
+        }
     }
 }
 
@@ -217,6 +242,27 @@ class PianoCell {
         this.element.style.textAlign = "right"
     }
 
+    showClick(clicked=true) {
+        if (clicked) {
+            this.element.classList.add("key-force-hover-click")
+            if (this.black) this.element.classList.add("black-key-force-hover-click")
+        } else {
+            this.element.classList.remove("key-force-hover-click")
+            if (this.black) this.element.classList.remove("black-key-force-hover-click")
+        }
+    }
+
+    showChordClick(clicked=true) {
+        if (clicked) {
+            this.element.classList.add("key-force-hover-click-chord")
+            if (this.black) this.element.classList.add("black-key-force-hover-click-chord")
+        } else {
+            this.element.classList.remove("key-force-hover-click-chord")
+            if (this.black) this.element.classList.remove("black-key-force-hover-click-chord")
+        }
+
+    }
+
     setupEventListeners() {
         this.element.addEventListener("mousedown", () => {
             let freq = midi_note_to_freq(this.row)
@@ -229,8 +275,7 @@ class PianoCell {
             if (mouseDown) {
                 let freq = midi_note_to_freq(this.row)
                 playTone(freq, 500)
-                this.element.classList.add("key-force-hover-click")
-                if (this.black) this.element.classList.add("black-key-force-hover-click")
+                this.showClick()
             }
         })
 
@@ -242,13 +287,11 @@ class PianoCell {
 
         this.element.addEventListener("mouseleave", () => {
             this.element.innerHTML = ""
-            this.element.classList.remove("key-force-hover-click")
-            if (this.black) this.element.classList.remove("black-key-force-hover-click")
+            this.showClick(false)
         })
 
         this.element.addEventListener("mouseup", () => {
-            this.element.classList.remove("key-force-hover-click")
-            if (this.black) this.element.classList.remove("black-key-force-hover-click")
+            this.showClick(false)
         })
     }
 }

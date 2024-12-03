@@ -18,6 +18,10 @@
     background-color: var(--primary) !important;
 }
 
+.key-force-hover-click-chord {
+    background-color: var(--secondary) !important;
+}
+
 .black-key {
     background-image: linear-gradient(to right, black 0%, black 50%, white 51%, white 100%);
     margin-right: 0;
@@ -31,5 +35,10 @@
 .black-key-force-hover-click {
     background-color: var(--primary) !important;
     background-image: linear-gradient(to right, black 0%, black 50%, var(--primary) 51%, var(--primary) 100%) !important;
+}
+
+.black-key-force-hover-click-chord {
+    background-color: var(--secondary) !important;
+    background-image: linear-gradient(to right, black 0%, black 50%, var(--secondary) 51%, var(--secondary) 100%) !important;
 }
 

@@ -1,7 +1,6 @@
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 let bpmInput = document.getElementById("input_bpm");
-let variationInput = document.getElementById("randomness-slider");
 let interval;
 let intervalId;
 let playing = false;
@@ -173,6 +172,7 @@ const getChordNotes = (root, chordType) => {
 const playChord = (notes, duration) => {
     for (let note of notes) {
         playTone(midi_note_to_freq(note + 12), duration, 0.1);
+        if (pianoNotes[ROWS - note - 13]) pianoNotes[ROWS - note - 13].showChordClick()
     }
 };
 

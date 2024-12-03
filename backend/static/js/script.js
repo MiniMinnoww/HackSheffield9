@@ -16,6 +16,7 @@ let pianoNotes = [];
 // DOM Elements
 let midi_roll = document.getElementById("midi_roll");
 let pianoRoll = document.getElementById("piano");
+let variationInput = document.getElementById("randomness-slider");
 
 // Constants
 const COLS = 32;
@@ -42,7 +43,7 @@ const send_data = (payload) => {
             if (cell.enabled) {
                 let root = midi_note_to_name(returned_chords[i].root);
                 let type = returned_chords[i].type;
-                cell.setChordText(root, type);
+                cell.setChordText(root, type, returned_chords[i].root);
                 if (debug) cell.setDebugData(debug_data["chord_possibilities"][i]);
                 i++;
             }
