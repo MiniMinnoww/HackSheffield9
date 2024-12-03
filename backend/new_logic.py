@@ -2,10 +2,11 @@
 A new version of the logic that converts the payload into a list of chords for each section.
 """
 import json
-import cadences
-import constants
-from key_centre import get_key_centre, get_all_notes
 
+import constants
+
+from key_centre import get_key_centre, get_all_notes
+import backend.cadences as cadences
 
 # Constants
 CHORD_TEMPLATE = {
