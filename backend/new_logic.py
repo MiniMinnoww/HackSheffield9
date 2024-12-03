@@ -6,7 +6,7 @@ import json
 import constants
 
 from key_centre import get_key_centre, get_all_notes
-import backend.cadences as cadences
+import cadences
 
 # Constants
 CHORD_TEMPLATE = {
