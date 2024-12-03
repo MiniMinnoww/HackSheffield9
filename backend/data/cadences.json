@@ -1,0 +1,11 @@
+{
+  "0 maj,0 maj": [
+    {"cadence": "7 maj,0 maj", "weight": 2.5},
+    {"cadence": "7 7,0 maj", "weight": 3.5},
+    {"cadence": "5 maj,0 maj", "weight": 2}
+  ],
+  "7 maj,0 maj": [
+    {"cadence": "7 7,0 maj", "weight": 2.5},
+    {"cadence": "7 sus4,0 maj", "weight": 3.5}
+  ]
+}

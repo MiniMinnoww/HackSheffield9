@@ -163,15 +163,19 @@ const save = () => {
 }
 
 // Handle key input change
+let isKeySelected = false
 const handleKeyInputChange = () => {
     current_key = parseInt(key_input.value);
     if (current_key === -1) {
+        isKeySelected = false
         for (let row in midi_notes) {
             for (let cell of midi_notes[row])
                 cell.toggleInKeyStyle(false);
         }
         return;
     }
+
+    isKeySelected = true
 
     let notes_in_key_template = [0, 2, 4, 5, 7, 9, 11];
     let notes_in_key = [];

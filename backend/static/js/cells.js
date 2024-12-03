@@ -7,6 +7,7 @@ class Cell {
         this.enabled = false
         this.element = div
         this.canBeToggled = true
+        this.isInKey = false
 
         this.element.classList.add('cell-off')
 
@@ -34,11 +35,18 @@ class Cell {
     }
 
     toggleInKeyStyle(i) {
+        this.isInKey = i
         if (i) this.element.style.backgroundColor = '#edd7d7'
         else this.element.style.backgroundColor = ''
     }
 
     toggle() {
+        if (!this.isInKey && isKeySelected) {
+            this.enabled = false
+            this.updateUI()
+            return
+        }
+
         this.enabled = !this.enabled
         this.updateUI()
 
@@ -65,7 +73,19 @@ class Cell {
     }
 }
 
-let type_to_display_conversion = {"maj": "", "min": "m", "dim": "°", "sus4": "sus4", "sus2": "sus2"}
+let type_to_display_conversion = {
+    "maj": "",
+    "min": "m",
+    "dim": "°",
+    "sus4": "sus4",
+    "sus2": "sus2",
+    "7": "7",
+    "maj7": "maj7",
+    "9": "9",
+    "11": "11",
+    "5": "5",
+    "13": "13"
+}
 class ChordCell extends Cell {
     constructor(row, col, div) {
         super(row, col, div)
@@ -120,6 +140,7 @@ class ChordCell extends Cell {
     }
 
     setDebugData(data) {
+        console.log(data)
         if (data === undefined) return
 
         // Convert object to an array of [key, value] pairs
@@ -143,6 +164,7 @@ class ChordCell extends Cell {
             if (entries >= maxEntries) break
         }
 
+        this.debugData = displayedText
         this.debugDisplay.innerHTML = displayedText
     }
 

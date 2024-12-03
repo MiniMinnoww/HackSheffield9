@@ -2,7 +2,7 @@
 A new version of the logic that converts the payload into a list of chords for each section.
 """
 import json
-
+import cadences
 import constants
 from key_centre import get_key_centre, get_all_notes
 
@@ -13,7 +13,8 @@ CHORD_TEMPLATE = {
     "min": [0, 3, 7],
     "dim": [0, 3, 6],
     "sus4": [0, 5, 7],
-    "sus2": [0, 2, 7]
+    "sus2": [0, 2, 7],
+    "7": [0, 4, 7, 10]
 }
 
 # Load interval weighting from JSON file
@@ -143,9 +144,10 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) 
 
     return_data = []
 
+    possibilities = []
+
     # Process each section
-    for section_index, note_dict in notes.items():
-        section_data = {"root": 0, "type": "maj", "length": 0}
+    for _, note_dict in notes.items():
         weights = CHORD_WEIGHTS_TEMPLATE.copy()
 
         # Add weights for each note in the section
@@ -159,16 +161,19 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) 
             if chord in weights:
                 weights[chord] += extra_weight
 
-        # Sort chords by weight in descending order
-        poss_chords = constants.sort_dict_by_value_desc(weights)
+        # Add weights to possibilities list
+        possibilities.append(weights)
 
-        # Add the chord weights to a debug dict
-        debug_poss_chords = {}
-        for chord, value in poss_chords.items():
-            note, chord_type = parse_chord(chord)
-            chord = f"{note + key} {chord_type}"
-            debug_poss_chords[chord] = value
-        debug_data["chord_possibilities"].append(debug_poss_chords)
+    # Additional Processing
+
+    # Cadences
+    possibilities = cadences.get_cadenced_chords(possibilities)
+
+    # TODO: Remove duplicate chord probabilities
+
+    for idx, weights in enumerate(possibilities):
+        section_data = {"root": 0, "type": "maj", "length": 0}
+        poss_chords = constants.sort_dict_by_value_desc(weights)
 
         # Choose the best chord
         note, chord_type = parse_chord(list(poss_chords.keys())[0])
@@ -177,6 +182,8 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) 
 
         # Calculate the length of the section
         section_indexes = list(notes.keys())
+        section_index = section_indexes[idx]
+
         try:
             next_section_index = section_indexes.index(section_index) + 1
             section_data["length"] = section_indexes[next_section_index] - section_index
@@ -184,5 +191,7 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) 
             section_data["length"] = payload_length - section_index
 
         return_data.append(section_data)
+
+    debug_data["chord_possibilities"] = possibilities
 
     return return_data, debug_data

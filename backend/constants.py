@@ -58,6 +58,7 @@ except FileNotFoundError:
         INTERVAL_WEIGHTING = json.load(file)
 
 
+
 def sort_dict_by_value_desc(dictionary: dict):
     sorted_dict = dict(sorted(dictionary.items(), key=lambda item: item[1], reverse=True))
     return sorted_dict
