@@ -103,7 +103,6 @@ def on_data_received(payload: dict) -> dict:
 
     return {"data": data, "debug": debug}
 
-
 def get_all_chords_and_chord_weight_template() -> tuple:
     """
     Generates a list of all possible chords and their associated weight templates.
@@ -124,28 +123,13 @@ def get_all_chords_and_chord_weight_template() -> tuple:
                 chord_weights_template[f"{n} {chord_type}"] = 0
 
     return all_chords, chord_weights_template
-# Generate all possible chords and their weight templates
-ALL_CHORDS, CHORD_WEIGHTS_TEMPLATE = get_all_chords_and_chord_weight_template()
 
-def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1, variation_factor: float=0) -> tuple:
+def get_possibilities_from_notes(notes: dict):
     """
-    Analyzes notes in each section and assigns possible chords based on weights.
-
-    :param dict notes: A dictionary of notes and their frequencies grouped by section.
-    :param int payload_length: The length of the payload.
-    :param int key: The key center used to adjust chord roots.
-
-    :return: A tuple containing:
-               1. A list of section data with root, type, and length for each section.
-               2. A dictionary containing debug data about chord possibilities.
-    :rtype: tuple
+    Generates the possible chords using the basic weights from the dict of notes in sections
+    :param notes: The input dict of notes in each section
+    :return: A list of dicts each containing every chord with a weight assigned
     """
-    debug_data = {
-        "chord_possibilities": []
-    }
-
-    return_data = []
-
     possibilities = []
 
     # Process each section
@@ -165,15 +149,19 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1, 
 
         # Add weights to possibilities list
         possibilities.append(weights)
+    return possibilities
 
-    # Additional Processing
+def generate_return_data_from_possibilities(possibilities: dict, key: int, notes: dict, payload_length: int):
+    """
+    Takes the chord possibilities and generates the file to send back to the client, using the most likely chord
 
-    # Cadences
-    possibilities = cadences.get_cadenced_chords(possibilities)
-
-    # Random variation
-    possibilities = variation.add_variation_to_chord_weights(possibilities, variation_factor)
-
+    :param possibilities: List of possible chords for each section, each with a weight
+    :param key: The key offset to be added back
+    :param notes: The input dict of notes in each section
+    :param payload_length: The length of the full payload (the width of the MIDI input roll)
+    :return: The server return data, each section is a dict as so: {"root": 0, "type": "maj", "length": 0}
+    """
+    return_data = []
     for idx, weights in enumerate(possibilities):
         section_data = {"root": 0, "type": "maj", "length": 0}
         poss_chords = constants.sort_dict_by_value_desc(weights)
@@ -194,7 +182,43 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1, 
             section_data["length"] = payload_length - section_index
 
         return_data.append(section_data)
+    return return_data
+
+def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1, variation_factor: float=0) -> tuple:
+    """
+    Analyzes notes in each section and assigns possible chords based on weights.
+
+    :param variation_factor: The randomness applied to the chords returned
+    :param dict notes: A dictionary of notes and their frequencies grouped by section.
+    :param int payload_length: The length of the payload.
+    :param int key: The key center used to adjust chord roots.
+
+    :return: A tuple containing:
+               1. A list of section data with root, type, and length for each section.
+               2. A dictionary containing debug data about chord possibilities.
+    :rtype: tuple
+    """
+    debug_data = {
+        "chord_possibilities": []
+    }
+
+    # Get basic probabilities
+    possibilities = get_possibilities_from_notes(notes)
+
+    # Additional Processing
+
+    # Cadences
+    possibilities = cadences.get_cadenced_chords(possibilities)
+
+    # Random variation
+    possibilities = variation.add_variation_to_chord_weights(possibilities, variation_factor)
+
+    # Turn our possibilities into return data for the server
+    return_data = generate_return_data_from_possibilities(possibilities, key, notes, payload_length)
 
     debug_data["chord_possibilities"] = possibilities
 
     return return_data, debug_data
+
+# Generate all possible chords and their weight templates
+ALL_CHORDS, CHORD_WEIGHTS_TEMPLATE = get_all_chords_and_chord_weight_template()
