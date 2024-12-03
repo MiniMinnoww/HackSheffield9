@@ -1,6 +1,6 @@
 # Importing necessary modules and functions from an external `logic` module.
 from logic import *
-from constants import *
+from backend.updated_backend.constants import *
 
 
 # Function to process the payload and create a dictionary of chord changes and note information.

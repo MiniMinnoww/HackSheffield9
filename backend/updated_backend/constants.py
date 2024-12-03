@@ -44,14 +44,14 @@ INTERVAL_TEMPLATES = {
 
 # Weightings for each interval, indicating their importance in chord identification.
 try:
-    with open("data/chord_weights.json", "r") as file:
+    with open("../data/chord_weights.json", "r") as file:
         CHORD_WEIGHTS = json.load(file)
 except FileNotFoundError:
     with open("backend/data/chord_weights.json", "r") as file:
         CHORD_WEIGHTS = json.load(file)
 
 try:
-    with open("data/interval_weights.json", "r") as file:
+    with open("../data/interval_weights.json", "r") as file:
         INTERVAL_WEIGHTING = json.load(file)
 except FileNotFoundError:
     with open("backend/data/interval_weights.json", "r") as file:

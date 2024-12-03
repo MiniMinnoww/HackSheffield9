@@ -3,11 +3,11 @@ A new version of the logic that converts the payload into a list of chords for e
 """
 import json
 
-import constants
+import backend.updated_backend.constants as constants
 
-from key_centre import get_key_centre, get_all_notes
-import cadences
-import variation
+from backend.updated_backend.key_centre import get_key_centre, get_all_notes
+import backend.updated_backend.cadences as cadences
+import backend.updated_backend.variation as variation
 
 # Constants
 CHORD_TEMPLATE = {
@@ -22,7 +22,7 @@ CHORD_TEMPLATE = {
 # Load interval weighting from JSON file
 INTERVAL_WEIGHTING = {}
 try:
-    with open("data/new_interval_weights.json", "r", encoding="utf-8") as file:
+    with open("../data/new_interval_weights.json", "r", encoding="utf-8") as file:
         INTERVAL_WEIGHTING = json.load(file)
 except FileNotFoundError:
     with open("backend/data/new_interval_weights.json", "r", encoding="utf-8") as file:

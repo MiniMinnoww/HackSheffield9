@@ -1,5 +1,4 @@
-import key_centre
-from constants import *
+from updated_backend.constants import *
 
 
 

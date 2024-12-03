@@ -2,8 +2,9 @@ import os
 
 from flask import Flask, render_template, request, jsonify
 import note_convert
-from constants import Color
-import new_logic
+from backend.updated_backend.constants import Color
+from backend.updated_backend import new_logic
+
 app = Flask(__name__)
 @app.route('/')
 def index():

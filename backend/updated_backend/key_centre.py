@@ -1,5 +1,4 @@
-import note_convert
-from constants import *
+from backend.updated_backend.constants import *
 
 def get_all_notes(payload):
     notes = {}
@@ -45,6 +44,6 @@ def get_weights_for_chords_in_key(notes_in_sections):
     new_chords = {}
     for dict_key, item in CHORD_WEIGHTS.items():
         note = (int(dict_key[0]) + section_key) % 12
-        new_chords[note_convert.NOTES[note] + dict_key[1:]] = item
+        new_chords[NOTES[note] + dict_key[1:]] = item
 
     return new_chords

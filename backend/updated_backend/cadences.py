@@ -1,9 +1,9 @@
 import json
 
-from backend.constants import sort_dict_by_value_desc
+from backend.updated_backend.constants import sort_dict_by_value_desc
 
 try:
-    with open("data/cadences.json", "r") as file:
+    with open("../data/cadences.json", "r") as file:
         CADENCES = json.load(file)
 except FileNotFoundError:
     with open("backend/data/cadences.json", "r") as file:
