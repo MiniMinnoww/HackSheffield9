@@ -88,6 +88,22 @@ label{
     box-shadow: 2px 2px 5px rgb(117, 117, 117);
 }
 
+#randomness-area {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#randomness-area label {
+    margin: 0 5px 0 0;
+}
+
+#randomness-area input {
+    padding: 5px 0;
+}
+
 #goButton{
     background-color: var(--primary);
     border: 5px outset var(--primary);
@@ -96,7 +112,7 @@ label{
     height: 40px;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 0% 0% 1% 42.5%;
+    margin: 0 0 1% 42.5%;
 }
 
 #goButton:hover{

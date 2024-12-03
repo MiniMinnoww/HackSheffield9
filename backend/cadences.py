@@ -15,7 +15,7 @@ def get_cadenced_chords(possibilities: list):
         possibilities_copy.append((sort_dict_by_value_desc(dictionary)))
 
     possibilities = possibilities_copy
-    print(possibilities[2])
+
     for index, _ in enumerate(possibilities):
         if index == 0: continue
 
@@ -37,9 +37,6 @@ def get_cadenced_chords(possibilities: list):
 
             possibilities[index - 1][cadence.split(",")[0]] += weight
             possibilities[index][cadence.split(",")[1]] += weight / 2
-
-    possibilities[2] = sort_dict_by_value_desc(possibilities[2])
-    print(possibilities[2])
 
     return possibilities
 
