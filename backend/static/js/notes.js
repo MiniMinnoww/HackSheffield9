@@ -1,6 +1,7 @@
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 let bpmInput = document.getElementById("input_bpm");
+let variationInput = document.getElementById("randomness-slider");
 let interval;
 let intervalId;
 let playing = false;

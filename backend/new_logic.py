@@ -7,6 +7,7 @@ import constants
 
 from key_centre import get_key_centre, get_all_notes
 import cadences
+import variation
 
 # Constants
 CHORD_TEMPLATE = {
@@ -98,7 +99,7 @@ def on_data_received(payload: dict) -> dict:
 
     # Get notes grouped by sections and their corresponding chords
     notes = get_all_notes_in_sections(payload=payload, offset=key)
-    data, debug = get_chords_from_notes_in_sections(notes, payload_length, key)
+    data, debug = get_chords_from_notes_in_sections(notes, payload_length, key, float(payload["variation"]))
 
     return {"data": data, "debug": debug}
 
@@ -126,7 +127,7 @@ def get_all_chords_and_chord_weight_template() -> tuple:
 # Generate all possible chords and their weight templates
 ALL_CHORDS, CHORD_WEIGHTS_TEMPLATE = get_all_chords_and_chord_weight_template()
 
-def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) -> tuple:
+def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1, variation_factor: float=0) -> tuple:
     """
     Analyzes notes in each section and assigns possible chords based on weights.
 
@@ -170,7 +171,8 @@ def get_chords_from_notes_in_sections(notes: dict, payload_length: int, key=-1) 
     # Cadences
     possibilities = cadences.get_cadenced_chords(possibilities)
 
-    # TODO: Remove duplicate chord probabilities
+    # Random variation
+    possibilities = variation.add_variation_to_chord_weights(possibilities, variation_factor)
 
     for idx, weights in enumerate(possibilities):
         section_data = {"root": 0, "type": "maj", "length": 0}

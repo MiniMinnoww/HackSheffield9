@@ -117,6 +117,7 @@ const generatePayload = () => {
 
     payload["speed"] = bpmInput.value;
     payload["debug"] = debug;
+    payload["variation"] = variationInput.value;
 
     payload["chords"] = "";
     for (let chord of chords) {
