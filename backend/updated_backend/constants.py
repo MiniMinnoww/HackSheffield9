@@ -44,14 +44,14 @@ INTERVAL_TEMPLATES = {
 
 # Weightings for each interval, indicating their importance in chord identification.
 try:
-    with open("../data/chord_weights.json", "r") as file:
+    with open("data/chord_weights.json", "r") as file:
         CHORD_WEIGHTS = json.load(file)
 except FileNotFoundError:
     with open("backend/data/chord_weights.json", "r") as file:
         CHORD_WEIGHTS = json.load(file)
 
 try:
-    with open("../data/interval_weights.json", "r") as file:
+    with open("data/interval_weights.json", "r") as file:
         INTERVAL_WEIGHTING = json.load(file)
 except FileNotFoundError:
     with open("backend/data/interval_weights.json", "r") as file:
@@ -62,16 +62,6 @@ except FileNotFoundError:
 def sort_dict_by_value_desc(dictionary: dict):
     sorted_dict = dict(sorted(dictionary.items(), key=lambda item: item[1], reverse=True))
     return sorted_dict
-
-
-# Example data to simulate a payload, chord profile, and note profile.
-example_payload = {
-    "chords": "10000000100000001000000010000000",  # Chord profile string
-    "0": "11110011000000001111000011111111",     # Note profile for MIDI note 0
-    "15": "00110011000000001111000011111111",    # Note profile for MIDI note 15
-}
-example_chord_profile = "10000000100000001000000010000000"  # Example chord profile
-example_note_profile = "11110011000000001111000011111111"  # Example note profile
 
 class Color:
     HEADER = '\033[95m'

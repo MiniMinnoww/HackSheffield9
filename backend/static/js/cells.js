@@ -97,17 +97,17 @@ class ChordCell extends Cell {
 
         this.generateDebugDisplay()
 
-        this.element.addEventListener("mouseover", (e) => {
+        this.element.addEventListener("mouseenter", (e) => {
             this.debugDisplay.style.top = e.positionY + "px"
             this.debugDisplay.style.left = e.positionX + "px"
             if (debug) this.setShowingDebugData(true)
 
-            if (this.element.innerHTML !== "") {
-                let notes = getChordNotes(this.root, this.type)
-                for (let note of notes) {
-                    for (let note of notes) if (pianoNotes[ROWS - note - 1]) pianoNotes[ROWS - note - 1].showChordClick()
-                }
-            }
+            // if (this.element.innerHTML !== "") {
+            //     let notes = getChordNotes(this.root, this.type)
+            //     for (let note of notes) {
+            //         for (let note of notes) if (pianoNotes[ROWS - note - 1]) pianoNotes[ROWS - note - 1].showChordClick()
+            //     }
+            // }
 
 
         })
@@ -211,6 +211,8 @@ class PianoCell {
         this.element = div
         this.forceNote = false
 
+        this.chordClickRequests = 0
+
         this.black = black
 
         if (black) this.element.classList.add('black-key')
@@ -253,7 +255,10 @@ class PianoCell {
     }
 
     showChordClick(clicked=true) {
-        if (clicked) {
+        this.chordClickRequests += clicked ? 1 : -1
+
+        // If the requests are 0, then remove the chord display. Otherwise, add it/keep it there
+        if (this.chordClickRequests > 0) {
             this.element.classList.add("key-force-hover-click-chord")
             if (this.black) this.element.classList.add("black-key-force-hover-click-chord")
         } else {

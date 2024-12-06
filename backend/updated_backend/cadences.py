@@ -2,8 +2,10 @@ import json
 
 from backend.updated_backend.constants import sort_dict_by_value_desc
 
+CADENCES = None
+
 try:
-    with open("../data/cadences.json", "r") as file:
+    with open("data/cadences.json", "r") as file:
         CADENCES = json.load(file)
 except FileNotFoundError:
     with open("backend/data/cadences.json", "r") as file:
@@ -24,7 +26,6 @@ def get_cadenced_chords(possibilities: list):
         last_chord = list(possibilities[index - 1].keys())[0]
 
         chord_sequence = f'{last_chord},{chord}'
-        print(chord_sequence)
         if chord_sequence not in list(CADENCES.keys()): continue
 
         possible_cadences = CADENCES[chord_sequence]
@@ -33,7 +34,8 @@ def get_cadenced_chords(possibilities: list):
             cadence = cadence_data["cadence"]
             weight = cadence_data["weight"]
 
-            print(f"Adding cadence weight for cadence {cadence}")
+            if cadence.split(",")[index - 1] not in possibilities[index]: continue
+            if cadence.split(",")[index] not in possibilities[index]: continue
 
             possibilities[index - 1][cadence.split(",")[0]] += weight
             possibilities[index][cadence.split(",")[1]] += weight / 2

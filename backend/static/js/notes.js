@@ -171,8 +171,17 @@ const getChordNotes = (root, chordType) => {
 // Play a chord by playing each note
 const playChord = (notes, duration) => {
     for (let note of notes) {
+        if (note > 12) note = note % 12
+
         playTone(midi_note_to_freq(note + 12), duration, 0.1);
-        if (pianoNotes[ROWS - note - 13]) pianoNotes[ROWS - note - 13].showChordClick()
+        if (pianoNotes[ROWS - note - 13])
+        {
+            pianoNotes[ROWS - note - 13].showChordClick()
+            setTimeout(() => {
+                pianoNotes[ROWS - note - 13].showChordClick(false)
+            }, duration)
+        }
+
     }
 };
 
